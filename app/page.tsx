@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { FiMic, FiUser, FiBookOpen, FiCreditCard, FiMapPin, FiArrowLeft, FiArrowRight  } from "react-icons/fi";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import Image from "next/image";
+import VoiceListener from "@/components/VoiceListener";
 
 function Page() {
   return (
@@ -42,9 +43,10 @@ function Page() {
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white w-full max-w-2xl p-10 rounded-2xl text-center shadow-lg">
           <FiMic className="text-7xl mx-auto mb-4" />
           <h3 className="text-2xl font-semibold mb-4">Cari kerja dengan suara</h3>
-          <Button className="bg-white text-blue-500 font-bold px-6 py-4 rounded-xl   hover:text-white hover:bg-yellow-500 transform transition-all duration-300">
-            Mulai Bicara
-          </Button>
+          {/* Replace static button with working voice listener */}
+          <div className="flex justify-center">
+            <VoiceListener />
+          </div>
         </div>
       </section>
 
