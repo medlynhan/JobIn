@@ -15,16 +15,17 @@ const LandingPage = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
             <h2 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
-              Learn New Skills.
+              Tanpa  Halangan,
               <br />
-              <span className="text-primary">Find Local Jobs.</span>
+              <span className="text-primary">Semua Bisa Bekerja.</span>
             </h2>
             
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Simple platform for informal workers to grow their skills and connect with opportunities in their community.
+            Temukan peluang baru dan kembangkan keterampilan di platform yang dirancang untuk pekerja informal.
             </p>
+
             
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Link href="/login" className="">
                 <Button size="lg" className="w-full text-base h-14 px-8 rounded-xl gradient-blue hover:opacity-90 transition-smooth">
                     Login

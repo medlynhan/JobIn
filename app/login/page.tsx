@@ -18,9 +18,9 @@ export default function LoginPage() {
         
       </Link>
 
-      <Card className="w-[380px] shadow-md border-none">
+      <Card className="w-[380px] shadow-none sm:shadow-md border-none">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Masuk Akun</CardTitle>
+          <CardTitle className="text-2xl font-bold ">Masuk Akun</CardTitle>
           <p className="text-sm text-muted-foreground mt-1">
             Belum punya akun?{" "}
             <Link href="/register" className="font-semibold  hover:underline">
