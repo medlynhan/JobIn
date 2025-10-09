@@ -1,49 +1,68 @@
-// app/login/page.tsx
-"use client"
-
-import { useState } from "react"
+// app/login/page.tsx (Next.js App Router)
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { FiMic } from "react-icons/fi"
+import Link from "next/link"
+import { X } from "lucide-react"
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [listening, setListening] = useState(false)
-
-  // ... (startVoice function remains the same)
-  const startVoice = () => {
-    const w = window as any
-    const SR = w.SpeechRecognition || w.webkitSpeechRecognition
-    if (!SR) return
-    const rec = new SR()
-    rec.lang = "id-ID"
-    rec.onresult = (e: any) => {
-      const text = e.results[0][0].transcript
-      setEmail(text.replace(/\s/g, "").toLowerCase())
-    }
-    rec.onend = () => setListening(false)
-    setListening(true)
-    rec.start()
-  }
-
   return (
-    // Consistent mobile-first padding and centered container
-    <main className="px-4 sm:px-8 py-12 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold">Masuk</h1>
-      <div className="mt-6 grid gap-3">
-        <label className="text-sm text-gray-600">Email atau Nomor HP</label>
-        <div className="flex flex-col sm:flex-row gap-2"> {/* Added flex-col on mobile, flex-row on sm+ */}
-          <input
-            className="flex-1 rounded border px-3 py-2"
-            placeholder="contoh: budi@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button onClick={startVoice} className="flex items-center justify-center gap-2"> {/* Added justify-center for full width on mobile */}
-            <FiMic /> {listening ? "Mendengarkan..." : "Suara"}
-          </Button>
-        </div>
-        <Button className="mt-2">Lanjut</Button>
-      </div>
-    </main>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      {/* Tombol X untuk kembali ke home */}
+      <Link
+        href="/"
+        className="absolute top-6 right-6 text-black hover:text-neutral-600 transition-colors"
+        aria-label="Kembali ke halaman utama"
+      >
+        <Button className="bg-primary/30 rounded-full text-neutral-600 text-bold  hover:text-background"><X className="w-6 h-6 text-bold" /></Button>
+        
+      </Link>
+
+      <Card className="w-[380px] shadow-md border-none">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-bold">Masuk Akun</CardTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            Belum punya akun?{" "}
+            <Link href="/register" className="font-semibold  hover:underline">
+              Daftar
+            </Link>
+          </p>
+        </CardHeader>
+
+        <CardContent className="space-y-4 mt-2">
+          <div className="space-y-1">
+            <label htmlFor="email" className="text-sm font-medium">
+              Email
+            </label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Masukkan email"
+              className=""
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label htmlFor="password" className="text-sm font-medium">
+              Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Masukkan password"
+              className=""
+            />
+          </div>
+        </CardContent>
+
+        <CardFooter>
+          <Link href={"/beranda"} className="w-full">  
+            <Button className="w-full text-white">
+              Masuk
+            </Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    </div>
   )
 }

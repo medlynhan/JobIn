@@ -35,7 +35,7 @@ const Hero = () => {
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="relative">
                 <img
-                  src= "/logo.png"
+                  src= "/maskot-AI.png"
                   alt="vAI Voice Assistant"
                   className="w-48 h-48 rounded-full shadow-lg"
                 />
@@ -46,16 +46,16 @@ const Hero = () => {
               
               <div className="bg-card rounded-2xl p-6 shadow-md">
                 <p className="text-lg font-medium text-foreground mb-1">
-                  Hi, I'm vAI 👋
+                  Hi, Aku Jobi 👋
                 </p>
                 <p className="text-muted-foreground">
-                  How can I help you today?
+                  Apa yang bisa aku bantu ?
                 </p>
               </div>
 
               <Button size="lg" variant="default" className="gap-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all bg-accent hover:bg-accent/90">
                 <Mic className="h-5 w-5" />
-                Speak Now
+                Coba Bicara
               </Button>
             </div>
           </div>

@@ -5,14 +5,21 @@ import CoursesCarousel from "@/components/CoursesCarousel";
 import Recommendations from   "@/components/Recommendations";
 import Footer from   "@/components/Footer";
 import FloatingVoiceButton from "@/components/FloatingVoiceButton";
-import LandingPage from "@/components/LandingPage";
 
-const Page = () => {
+const Index = () => {
   return (
-    <div className="h-screen">
-        <LandingPage />
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1">
+        <Hero />
+        <JobsCarousel />
+        <CoursesCarousel />
+        <Recommendations />
+      </main>
+      <Footer />
+      <FloatingVoiceButton />
     </div>
   );
 };
 
-export default Page;
+export default Index;

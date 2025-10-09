@@ -11,7 +11,9 @@ const Header = () => {
             <div className="h-6 w-6">
               <img src="/logo.png" alt="" />
             </div>
+            <Link href="/beranda">
             <span className="font-bold text-xl text-foreground">JobIn</span>
+            </Link>
           </div>
         </div>
 
@@ -33,14 +35,8 @@ const Header = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1 text-sm font-semibold">
             <MapPin className="h-4 w-4" />
-            <span className="hidden sm:inline">Jakarta</span>
+            <span className="inline">Jakarta</span>
           </div>
-          <Button variant="outline" size="sm">
-            Login
-          </Button>
-          <Button size="sm" className="hidden sm:inline-flex">
-            Register
-          </Button>
         </div>
       </div>
     </header>
