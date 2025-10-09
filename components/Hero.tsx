@@ -1,0 +1,68 @@
+import { Search, Mic } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Image, { type StaticImageData } from "next/image";
+
+const Hero = () => {
+  return (
+    <section className="container py-12 md:py-20  px-10 lg:px-20">
+      <div className="grid md:grid-cols-2 gap-12 items-center">
+        {/* Left Column - Search */}
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            Let's get started!<br />
+            Find a job that fits you.
+          </h1>
+          
+          <div className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Example: construction worker, driver, housekeeper..."
+                className="pl-12 pr-4 py-6 text-base rounded-xl border-2 focus:border-primary"
+              />
+            </div>
+            <Button size="lg" className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all">
+              Search Now
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Column - vAI Assistant */}
+        <div className="relative">
+          <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-8 shadow-lg">
+            <div className="flex flex-col items-center text-center space-y-6">
+              <div className="relative">
+                <img
+                  src= "/logo.png"
+                  alt="vAI Voice Assistant"
+                  className="w-48 h-48 rounded-full shadow-lg"
+                />
+                <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium shadow-md">
+                  AI
+                </div>
+              </div>
+              
+              <div className="bg-card rounded-2xl p-6 shadow-md">
+                <p className="text-lg font-medium text-foreground mb-1">
+                  Hi, I'm vAI 👋
+                </p>
+                <p className="text-muted-foreground">
+                  How can I help you today?
+                </p>
+              </div>
+
+              <Button size="lg" variant="default" className="gap-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all bg-accent hover:bg-accent/90">
+                <Mic className="h-5 w-5" />
+                Speak Now
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
