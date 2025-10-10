@@ -1,7 +1,8 @@
-import { Search, Mic } from "lucide-react";
+import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image, { type StaticImageData } from "next/image";
+import VoiceAssistantButton from "@/components/VoiceAssistantButton";
 
 const Hero = () => {
   return (
@@ -53,10 +54,7 @@ const Hero = () => {
                 </p>
               </div>
 
-              <Button size="lg" variant="default" className="gap-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all bg-accent hover:bg-accent/90">
-                <Mic className="h-5 w-5" />
-                Coba Bicara
-              </Button>
+              <VoiceAssistantButton />
             </div>
           </div>
         </div>

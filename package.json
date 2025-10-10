@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@azure/identity": "^4.13.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -46,6 +47,7 @@
     "microsoft-cognitiveservices-speech-sdk": "^1.46.0",
     "next": "15.5.4",
     "next-themes": "^0.4.6",
+    "openai": "^6.3.0",
     "react": "19.1.0",
     "react-day-picker": "^9.11.1",
     "react-dom": "19.1.0",

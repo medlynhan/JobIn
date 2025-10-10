@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/ui/navbar"
 import { Suspense } from "react"
+import VoiceAssistantFloating from "@/components/VoiceAssistantFloating"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         {children}
+        <VoiceAssistantFloating />
       </body>
     </html>
   )
