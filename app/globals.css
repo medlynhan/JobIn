@@ -165,6 +165,7 @@
 @layer base {
   * { @apply border-border; }
   body { @apply bg-background text-foreground antialiased; }
+
 }
 
 /* Utility extras (opsional, nyaman dipakai ulang) */
@@ -175,6 +176,14 @@
   .shadow-brand-sm { box-shadow: var(--shadow-sm); }
   .shadow-brand-md { box-shadow: var(--shadow-md); }
   .shadow-brand-lg { box-shadow: var(--shadow-lg); }
+}
+
+.loading-page{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

@@ -31,10 +31,10 @@ const LandingPage = () => {
                     Login
                 </Button>
               </Link>
-              <Link href="/login" className="">
-              <Button size="lg" variant="outline" className="w-full text-base h-14 px-8 rounded-xl border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
-                Daftar
-              </Button>
+              <Link href="/daftar" className="">
+                <Button size="lg" variant="outline" className="w-full text-base h-14 px-8 rounded-xl border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
+                  Daftar
+                </Button>
               </Link>
             </div>
             
