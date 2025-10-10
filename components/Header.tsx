@@ -1,8 +1,13 @@
+"use client";
+
+import React from "react";
 import { MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useUserLocation } from "@/hooks/useUserLocation";
 
 const Header = () => {
+  const { label: locationLabel } = useUserLocation();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card backdrop-blur supports-[backdrop-filter]:bg-card  px-10 lg:px-20 shadow-sm">
       <div className="container flex h-16 items-center justify-between">
@@ -27,7 +32,7 @@ const Header = () => {
           <Link href="/profil" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Profile
           </Link>
-          <Link href="/profil" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/tentang-kami" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Tentang Kami
           </Link>
         </nav>
@@ -35,7 +40,7 @@ const Header = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1 text-sm font-semibold">
             <MapPin className="h-4 w-4" />
-            <span className="inline">Jakarta</span>
+            <span className="inline" title={locationLabel}>{locationLabel}</span>
           </div>
         </div>
       </div>
