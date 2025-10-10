@@ -15,7 +15,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useUsers from '@/hooks/useUsers';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const editProfileSchema = z.object({
   name: z.string().min(2, "Nama minimal 2 karakter").max(100, "Nama maksimal 100 karakter"),
