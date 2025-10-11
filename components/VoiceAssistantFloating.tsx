@@ -128,7 +128,7 @@ export default function VoiceAssistantFloating() {
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
-      <div className="bg-white shadow-lg rounded-xl p-3 flex items-center gap-2 border">
+      <div className="bg-white shadow-lg rounded-xl p-3 flex flex-col md:flex-row items-end md:items-center gap-2 border">
         <button
           onClick={() => setEnabled((v) => !v)}
           className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium ${

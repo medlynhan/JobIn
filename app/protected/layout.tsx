@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { useRouter } from 'next/navigation'
 import Loading from '@/components/Loading'
+import VoiceAssistantFloating from '@/components/VoiceAssistantFloating'
 
 export default function ProtectedLayout({
   children,
@@ -37,5 +38,8 @@ export default function ProtectedLayout({
 
   if (!isAuthenticated) return null
 
-  return <>{children}</>
+  return <>
+    {children}
+    <VoiceAssistantFloating />
+  </>
 }
