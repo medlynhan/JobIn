@@ -34,10 +34,9 @@ export function useUserLocation() {
           .then((data) => {
             if (cancelled) return;
             const addr = data?.address || {};
-            // Localized label: locality + province/region when available
             const locality = addr.city || addr.town || addr.village || addr.suburb || addr.county || addr.hamlet;
             const province = addr.state || addr.region;
-            const pretty = [locality, province]
+            const pretty = [locality]
               .filter(Boolean)
               .join(", ") || (data?.display_name ? String(data.display_name).split(",").slice(0, 2).join(", ") : null) || "Di dekat Anda";
             setLabel(pretty);
