@@ -13,7 +13,7 @@ type Props = {
     level: string
     duration: string
     rating?: number
-    instructor?: string
+    author?: string
     content?: { id: number; title: string }[]
   }
 }
@@ -54,7 +54,7 @@ export function CourseDetailClient({ course }: Props) {
             </h1>
 
             <p className="text-muted-foreground">
-              oleh: {course.instructor || "Instruktur Profesional"}
+              oleh: {course.author || "Instruktur Profesional"}
             </p>
 
             <div className="flex flex-wrap gap-4 text-muted-foreground text-sm">
