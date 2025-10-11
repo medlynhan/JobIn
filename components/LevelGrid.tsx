@@ -1,16 +1,18 @@
 "use client"
+
 import { cn } from "@/lib/utils"
+import { Sprout, Settings, Rocket } from "lucide-react"
 
 export type Level = {
   id: string
   label: string
-  emoji: string
+  icon: React.ElementType
 }
 
 const defaultLevels: Level[] = [
-  { id: "Pemula", label: "Pemula", emoji: "🌱" },
-  { id: "Menengah", label: "Menengah", emoji: "⚙️" },
-  { id: "Lanjutan", label: "Lanjutan", emoji: "🚀" },
+  { id: "Pemula", label: "Pemula", icon: Sprout },
+  { id: "Menengah", label: "Menengah", icon: Settings },
+  { id: "Lanjutan", label: "Lanjutan", icon: Rocket },
 ]
 
 type Props = {
@@ -31,6 +33,7 @@ export function LevelGrid({ value, onChange, levels = defaultLevels }: Props) {
       >
         {levels.map((lvl) => {
           const active = value === lvl.id
+          const Icon = lvl.icon
           return (
             <button
               key={lvl.id}
@@ -38,11 +41,11 @@ export function LevelGrid({ value, onChange, levels = defaultLevels }: Props) {
               className={cn(
                 "flex flex-col items-center justify-center rounded-2xl border bg-card px-8 py-8 text-center transition-all",
                 "hover:bg-accent hover:shadow-sm",
-                active && "border-ring bg-accent shadow-md"
+                active && "border-primary bg-primary/10 shadow-md"
               )}
               aria-pressed={active}
             >
-              <div className="text-4xl">{lvl.emoji}</div>
+              <Icon className={cn("h-10 w-10", active ? "text-primary" : "text-muted-foreground")} />
               <div className="mt-3 font-medium text-lg">{lvl.label}</div>
             </button>
           )

@@ -51,7 +51,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
       {/* Join Button with Link */}
       <CardFooter className="p-4 pt-0">
         <Link href={`/protected/kelas/${course.id}`} className="w-full">
-          <Button className="w-full rounded-lg font-medium">Join Course</Button>
+          <Button className="w-full rounded-lg font-medium">Ikuti Kelas</Button>
         </Link>
       </CardFooter>
     </Card>

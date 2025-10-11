@@ -1,21 +1,32 @@
 "use client"
+
 import { cn } from "@/lib/utils"
+import {
+  Scissors,
+  Hammer,
+  Car,
+  BrushCleaning,
+  ShoppingCart,
+  Wrench,
+  CookingPot,
+  ClipboardList,
+} from "lucide-react"
 
 export type Category = {
   id: string
   label: string
-  emoji: string
+  icon: React.ElementType
 }
 
 const defaultCategories: Category[] = [
-  { id: "Penjahit", label: "Penjahit", emoji: "✂️" },
-  { id: "Tukang", label: "Tukang", emoji: "🔨" },
-  { id: "Supir", label: "Supir", emoji: "🚗" },
-  { id: "Housekeeping", label: "Housekeeper", emoji: "🧹" },
-  { id: "Pedagang", label: "Pedagang", emoji: "🛒" },
-  { id: "Teknisi", label: "Teknisi", emoji: "🛠️" },       // changed from "cleaning"
-  { id: "Pemasak", label: "Pemasak", emoji: "👩‍🍳" },     // changed from "tukang-kebun"
-  { id: "Admin", label: "Admin", emoji: "📋" },
+  { id: "Penjahit", label: "Penjahit", icon: Scissors },
+  { id: "Tukang", label: "Tukang", icon: Hammer },
+  { id: "Supir", label: "Supir", icon: Car },
+  { id: "Housekeeping", label: "Housekeeper", icon: BrushCleaning },
+  { id: "Pedagang", label: "Pedagang", icon: ShoppingCart },
+  { id: "Teknisi", label: "Teknisi", icon: Wrench },
+  { id: "Pemasak", label: "Pemasak", icon: CookingPot },
+  { id: "Admin", label: "Admin", icon: ClipboardList },
 ]
 
 type Props = {
@@ -31,18 +42,19 @@ export function CategoryGrid({ value, onChange, categories = defaultCategories }
       <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
         {categories.map((c) => {
           const active = value === c.id
+          const Icon = c.icon
           return (
             <button
               key={c.id}
               onClick={() => onChange?.(active ? null : c.id)}
               className={cn(
-                "rounded-2xl border bg-card px-4 py-6 text-center transition-colors",
-                "hover:bg-accent",
-                active && "border-ring bg-accent",
+                "flex flex-col items-center justify-center rounded-2xl border bg-card px-4 py-6 text-center transition-all",
+                "hover:bg-accent hover:shadow-sm",
+                active && "border-primary bg-primary/10 shadow-md"
               )}
               aria-pressed={active}
             >
-              <div className="text-3xl">{c.emoji}</div>
+              <Icon className={cn("h-10 w-10", active ? "text-primary" : "text-muted-foreground")} />
               <div className="mt-3 font-medium">{c.label}</div>
             </button>
           )
