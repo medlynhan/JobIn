@@ -10,4 +10,15 @@ export type Job = {
     uid: string
     postedDate: string
   }
+
+export type Course = {
+    id: string
+    title: string
+    category: string
+    duration: string
+    level: string
+    image: string
+    description: string
+  }
+  
   

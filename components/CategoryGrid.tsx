@@ -27,7 +27,7 @@ type Props = {
 export function CategoryGrid({ value, onChange, categories = defaultCategories }: Props) {
   return (
     <div className="mt-8">
-      <h3 className="text-xl font-semibold md:text-2xl">Kategori Pekerjaan</h3>
+      <h3 className="text-xl font-semibold md:text-2xl">Kategori</h3>
       <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
         {categories.map((c) => {
           const active = value === c.id
