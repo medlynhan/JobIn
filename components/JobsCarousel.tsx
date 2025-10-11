@@ -13,33 +13,33 @@ import { useCallback } from "react";
 
 const jobs = [
   {
-    title: "Construction Worker",
-    location: "South Jakarta",
-    pay: "Rp 150,000 - 200,000/day",
+    title: "Pekerja Bangunan",
+    location: "Jakarta Selatan",
+    pay: "Rp 150,000 - 200,000/hari",
     image: "/construction-job.png",
   },
   {
-    title: "Online Driver",
-    location: "Central Jakarta",
-    pay: "Rp 100,000 - 250,000/day",
+    title: "Supir Online",
+    location: "Jakarta Tengah",
+    pay: "Rp 100,000 - 250,000/hari",
     image: "/driver-job.png",
   },
   {
-    title: "Tailor",
-    location: "East Jakarta",
-    pay: "Rp 120,000 - 180,000/day",
+    title: "Penjahit",
+    location: "Jakarta Timur",
+    pay: "Rp 120,000 - 180,000/hari",
     image: "/tailor-job.png",
   },
   {
-    title: "Housekeeper",
-    location: "West Jakarta",
-    pay: "Rp 80,000 - 150,000/day",
+    title: "Asisten Rumah Tangga",
+    location: "Jakarta Barat",
+    pay: "Rp 80,000 - 150,000/hari",
     image: "/housekeeper-job.png",
   },
   {
-    title: "Street Vendor",
-    location: "North Jakarta",
-    pay: "Rp 100,000 - 300,000/day",
+    title: "Pedagang Kaki Lima",
+    location: "Jakarta Utara",
+    pay: "Rp 100,000 - 300,000/hari",
     image: "/vendor-job.png",
   },
 ];

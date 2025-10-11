@@ -35,7 +35,7 @@ const JobCard = ({ title, location, pay, image }: JobCardProps) => {
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button variant="outline" className="w-full rounded-lg font-medium">
-          View Details
+          Lihat Detail
         </Button>
       </CardFooter>
     </Card>

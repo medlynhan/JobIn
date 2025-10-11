@@ -2,6 +2,7 @@
 "use client"
 
 import { Suspense } from "react"
+import { Navbar } from "@/components/ui/navbar";
 import useSWR from "swr"
 import { type Job, fetcher } from "@/lib/jobs"
 import { JobList } from "@/components/ui/list-pekerjaan"
@@ -9,8 +10,9 @@ import { VoiceJobSearch } from "@/components/ui/pekerjaan-voice"
 import Link from "next/link"
 
 export default function JobsPage() {
-  return (
-    // Consistent mobile-first padding
+    return(
+    <>
+    
     <main className="px-4 sm:px-6 lg:px-12 py-12">
       <div className="border border-gray-300 rounded-2xl p-4 sm:p-6 lg:p-10 shadow-sm bg-white">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -27,11 +29,11 @@ export default function JobsPage() {
         <AllJobs />
       </div>
     </main>
-  )
+    </>
+    )
 }
 
 function AllJobs() {
-// ... (AllJobs component remains the same)
   const { data } = useSWR<Job[]>("/api/jobs", fetcher)
   if (!data)
     return <div className="mt-8 text-sm text-gray-500">Memuat daftar pekerjaan...</div>

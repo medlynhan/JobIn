@@ -11,8 +11,8 @@ const Hero = () => {
         {/* Left Column - Search */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-            Let's get started!<br />
-            Find a job that fits you.
+            Mari kita mulai!<br />
+            Cari pekerjaan yang cocok dengan Anda.
           </h1>
           
           <div className="space-y-4">
@@ -20,12 +20,12 @@ const Hero = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Example: construction worker, driver, housekeeper..."
+                placeholder="Contoh: pekerja bangunan, supir, tukang AC..."
                 className="pl-12 pr-4 py-6 text-base rounded-xl border-2 focus:border-primary"
               />
             </div>
             <Button size="lg" className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all">
-              Search Now
+              Cari Sekarang
             </Button>
           </div>
         </div>

@@ -4,7 +4,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { FiMapPin } from "react-icons/fi"
+import { FiMapPin, FiDollarSign } from "react-icons/fi"
 import type { Job } from "@/lib/jobs"
 
 export function JobList({ jobs }: { jobs: Job[] }) {
@@ -25,9 +25,17 @@ export function JobList({ jobs }: { jobs: Job[] }) {
             className="rounded-lg aspect-4/3 object-cover w-full"
           />
           <h3 className="text-lg font-semibold mt-3 text-gray-800">{job.title}</h3>
-          <p className="text-sm text-gray-500 flex items-center gap-1">
-            <FiMapPin /> {job.distanceKm} km · {job.rate}
-          </p>
+          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <FiMapPin className="h-4 w-4" />
+              <span>{job.location}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <FiDollarSign className="h-4 w-4" />
+              <span>{job.pay}</span>
+            </div>
+          </div>
+
           <Link href={`/pekerjaan/${job.id}`}>
             <Button className="w-full mt-4">Lihat Detail</Button>
           </Link>

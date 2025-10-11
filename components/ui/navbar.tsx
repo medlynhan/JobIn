@@ -89,8 +89,8 @@ export function Navbar() {
           <Image
             src="/logo.png"
             alt="JobIn logo"
-            width={75}
-            height={75}
+            width={35}
+            height={35}
             className="cursor-pointer"
             priority
           />
