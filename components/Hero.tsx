@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image, { type StaticImageData } from "next/image";
-import VoiceAssistantButton from "@/components/VoiceAssistantButton";
+import VoiceAssistantButton from "@/components/VoiceAssistantFloating";
 
 const Hero = () => {
   return (
