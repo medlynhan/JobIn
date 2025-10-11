@@ -63,7 +63,7 @@ export default function LoginPage() {
         className="absolute top-6 right-6 text-black hover:text-neutral-600 transition-colors"
         aria-label="Kembali ke halaman utama"
       >
-        <Button className="bg-primary/30 rounded-full text-neutral-600 text-bold hover:text-background">
+        <Button className="bg-primary/30 rounded-full text-neutral-600 py-5 text-bold hover:text-background">
           <X className="w-6 h-6 text-bold" />
         </Button>
       </Link>

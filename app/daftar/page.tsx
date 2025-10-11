@@ -62,7 +62,7 @@ export default function RegisterPage() {
         className="absolute top-6 right-6 text-black hover:text-neutral-600 transition-colors"
         aria-label="Kembali ke halaman utama"
       >
-        <Button className="bg-primary/30 rounded-full text-neutral-600 text-bold hover:text-background">
+        <Button className="bg-primary/30 rounded-full py-5 text-neutral-600 text-bold hover:text-background">
           <X className="w-6 h-6 text-bold" />
         </Button>
       </Link>
