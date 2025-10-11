@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createSpeechConfig, recognizeOnce, speak, parseIntent, VAStatus } from "@/lib/voice";
-import { Mic, Square, BookOpen } from "lucide-react";
+import { Mic, Square } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function VoiceAssistantFloating() {
@@ -47,6 +47,22 @@ export default function VoiceAssistantFloating() {
             continue;
           }
 
+          // Voice command: summarize current page
+          const lower = text.toLowerCase();
+          const wantsSummary =
+            lower.includes("bacakan halaman") ||
+            lower.includes("tolong bacakan halaman") ||
+            lower.includes("ringkas halaman") ||
+            lower.includes("baca ringkasan halaman") ||
+            lower.includes("read this page") ||
+            lower.includes("read page") ||
+            lower.includes("summarize this page");
+          if (wantsSummary) {
+            await summarizeAndReadCurrentPage(cfg, setStatus);
+            busyRef.current = false;
+            continue;
+          }
+
           setStatus("thinking");
           const res = await fetch("/api/ai/chat", {
             method: "POST",
@@ -76,49 +92,72 @@ export default function VoiceAssistantFloating() {
   const thinking = status === "thinking";
   const speaking = status === "speaking";
 
-  const readCurrentPage = async () => {
-    const cfg = createSpeechConfig();
-    if (!cfg) return;
+  async function summarizeAndReadCurrentPage(cfg: any, setStatusFn: (s: VAStatus) => void) {
     try {
       const main = document.querySelector("main") || document.body;
       const title = (document.title || "").trim();
       const raw = (main?.textContent || "").replace(/\s+/g, " ").trim();
       if (!raw) {
-        await speak(cfg, "Halaman ini tidak memiliki teks untuk dibacakan.");
+        setStatusFn("speaking");
+        await speak(cfg, "Maaf, halaman ini tidak memiliki teks untuk diringkas.");
         return;
       }
 
-      // Read literally: title first, then body in chunks
-      const textToRead = `${title ? `${title}. ` : ""}${raw}`;
-      const MAX_CHUNK = 800; // keep chunks small for stable TTS
-      const chunks: string[] = [];
-      // Try splitting by sentence boundaries near the limit
+  const MAX_INPUT = 4000; // keep prompt size modest for provider limits
+      const content = `${title ? `${title}. ` : ""}${raw}`.slice(0, MAX_INPUT);
+
+      setStatusFn("thinking");
+      const isProfile = typeof window !== 'undefined' && /\/profil\b/.test(window.location.pathname);
+      const instruction = isProfile
+        ? "Jelaskan halaman profil pengguna untuk tunanetra, tanpa istilah teknis. Sebutkan: nama pengguna, pekerjaan/headline, lokasi (jika ada), nomor telepon (jika ada), foto profil, daftar keahlian, pengalaman, serta tombol penting seperti Edit Profil dan Logout. Gunakan 5-8 kalimat singkat dan jelas."
+        : "Ringkas halaman ini untuk tunanetra, tanpa istilah teknis. Sebutkan judul, tujuan utama halaman, bagian/bagian penting, dan tombol/tautan yang bisa ditekan. Gunakan 5-8 kalimat singkat dan jelas.";
+      const prompt = `${instruction}\n\n---\n${content}`;
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, locale: "id-ID" }),
+      });
+      if (!res.ok) {
+        try {
+          const errJson = await res.json();
+          console.error("/api/ai/chat error:", errJson);
+        } catch {}
+        setStatusFn("speaking");
+        await speak(cfg, "Maaf, saya tidak dapat menghubungi AI untuk ringkasan saat ini.");
+        return;
+      }
+      const json = await res.json();
+      let summary: string = json?.text || "";
+      if (!summary) {
+        // provide audible feedback if response is empty
+        setStatusFn("speaking");
+        await speak(cfg, "Maaf, saya tidak mendapatkan ringkasan dari AI.");
+        return;
+      }
+
+      // Speak the summary in manageable chunks
+      const MAX_CHUNK = 800;
       let i = 0;
-      while (i < textToRead.length) {
-        let end = Math.min(i + MAX_CHUNK, textToRead.length);
-        if (end < textToRead.length) {
-          const slice = textToRead.slice(i, end);
+      while (i < summary.length) {
+        let end = Math.min(i + MAX_CHUNK, summary.length);
+        if (end < summary.length) {
+          const slice = summary.slice(i, end);
           const lastPunct = Math.max(slice.lastIndexOf("."), slice.lastIndexOf("!"), slice.lastIndexOf("?"));
-          if (lastPunct > 100) end = i + lastPunct + 1; // finish at a sentence end if reasonable
+          if (lastPunct > 100) end = i + lastPunct + 1;
         }
-        chunks.push(textToRead.slice(i, end).trim());
+        const part = summary.slice(i, end).trim();
+        if (part) {
+          setStatusFn("speaking");
+          await speak(cfg, part);
+        }
         i = end;
       }
 
-      // Optionally cap very long readings (e.g., first ~5000 chars)
-      let spoken = 0;
-      for (const part of chunks) {
-        if (!part) continue;
-        setStatus("speaking");
-        await speak(cfg, part);
-        spoken += part.length;
-        if (spoken > 5000) break; // prevent excessively long sessions for now
-      }
-      setStatus("idle");
+      setStatusFn("idle");
     } catch {
-      setStatus("error");
+      setStatusFn("error");
     }
-  };
+  }
 
   const stopAll = () => {
     loopRef.current = false;
@@ -133,17 +172,11 @@ export default function VoiceAssistantFloating() {
           onClick={() => setEnabled((v) => !v)}
           className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium ${
             enabled ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"
-          }`}
+          }`} 
           aria-pressed={enabled}
         >
           <Mic className="h-4 w-4" />
           {enabled ? (listening ? "Mendengar…" : thinking ? "Berpikir…" : speaking ? "Membacakan…" : "Siap") : "Aktifkan"}
-        </button>
-        <button
-          onClick={() => readCurrentPage()}
-          className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-muted"
-        >
-          <BookOpen className="h-4 w-4" /> Bacakan halaman
         </button>
         <button
           onClick={stopAll}

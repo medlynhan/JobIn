@@ -53,8 +53,6 @@ const Hero = () => {
                   Apa yang bisa aku bantu ?
                 </p>
               </div>
-
-              <VoiceAssistantButton />
             </div>
           </div>
         </div>

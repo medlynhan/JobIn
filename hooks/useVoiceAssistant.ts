@@ -19,7 +19,7 @@ function parseIntent(text: string): { navigateTo?: string; back?: boolean; annou
   if ((open.test(t) && /kelas/.test(t)) || /\bkelas\b/.test(t)) return { navigateTo: "/kelas", announce: "Membuka halaman kelas" };
   if ((open.test(t) && /(profil|profile)/.test(t)) || /\b(profil|profile)\b/.test(t)) return { navigateTo: "/profil", announce: "Membuka profil" };
   if ((open.test(t) && /(pembayaran|bayar|payment)/.test(t)) || /\b(pembayaran|bayar|payment)\b/.test(t)) return { navigateTo: "/pembayaran", announce: "Membuka pembayaran" };
-  if ((open.test(t) && /(beranda|home)/.test(t)) || /\b(beranda|home)\b/.test(t)) return { navigateTo: "/", announce: "Membuka beranda" };
+  if ((open.test(t) && /(beranda|home)/.test(t)) || /\b(beranda|home)\b/.test(t)) return { navigateTo: "/beranda", announce: "Membuka beranda" };
   if ((open.test(t) && /(login|masuk)/.test(t)) || /\b(login|masuk)\b/.test(t)) return { navigateTo: "/login", announce: "Membuka halaman masuk" };
   return null;
 }

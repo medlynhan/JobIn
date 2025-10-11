@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AzureOpenAI } from "openai";
+import Groq from "groq-sdk";
 
 function systemPrompt(locale: string | undefined) {
   const lang = locale?.startsWith("id") ? "id-ID" : "en-US";
   if (lang === "id-ID") {
-    return "Anda adalah asisten suara untuk aplikasi JobIn. Bantu pengguna tunanetra menavigasi aplikasi, menjawab pertanyaan singkat, dan arahkan ke halaman seperti pekerjaan, kelas, profil, pembayaran. Jawab singkat dan jelas.";
+    return "Anda adalah asisten suara untuk aplikasi JobIn. Bantu pengguna tunanetra menavigasi aplikasi, menjawab pertanyaan singkat, dan arahkan ke halaman website. Jawab singkat dan jelas.";
   }
   return "You are a voice assistant for the JobIn app. Help blind users navigate the app, answer brief questions, and direct them to pages like jobs, classes, profile, payments. Keep responses brief and clear.";
 }
@@ -18,22 +18,17 @@ export async function POST(req: NextRequest) {
   if (!prompt || typeof prompt !== "string") {
     return NextResponse.json({ error: "Invalid prompt" }, { status: 400 });
   }
-
-  const endpoint = (process.env.NEXT_PUBLIC_AZURE_OPENAI_ENDPOINT || "").replace(/\/$/, "");
-  const apiKey = process.env.NEXT_PUBLIC_AZURE_OPENAI_KEY || "";
-  const deployment = process.env.NEXT_PUBLIC_AZURE_OPENAI_DEPLOYMENT || "";
-
-  if (!endpoint || !apiKey || !deployment) {
-    return NextResponse.json({
-      error: "Azure OpenAI configuration missing. Set NEXT_PUBLIC_AZURE_OPENAI_ENDPOINT, NEXT_PUBLIC_AZURE_OPENAI_KEY, and NEXT_PUBLIC_AZURE_OPENAI_DEPLOYMENT in .env.",
-    }, { status: 500 });
-  }
-
   try {
-    const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion: "2023-07-01-preview" });
+    const apiKey = process.env.GROQ_API_KEY || "";
+    if (!apiKey) {
+      return NextResponse.json({ error: "GROQ_API_KEY missing in environment" }, { status: 500 });
+    }
+
+    const model = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
+    const client = new Groq({ apiKey });
 
     const response = await client.chat.completions.create({
-      model: deployment,
+      model,
       messages: [
         { role: "system", content: systemPrompt(locale) },
         { role: "user", content: prompt },

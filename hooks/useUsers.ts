@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { auth,database } from '@/lib/firebase';
+import { auth, database } from '@/lib/firebase';
 import { ref, onValue, set, update } from 'firebase/database';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 
 type User = {
   username: string;
@@ -23,50 +23,52 @@ const useUsers = () => {
   const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<any>(null);
 
-  //1.ambil semua user dari database
+  // 1. Ambil semua user dari database (jika dibutuhkan di halaman lain)
   useEffect(() => {
     const usersRef = ref(database, 'users');
-
-    onValue(usersRef, (snapshot) => {
+    const unsubscribe = onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
-      if (data) {
-        setUsers(Object.values(data)); 
-      }
-      setLoading(false); 
+      if (data) setUsers(Object.values(data));
     });
-
     return () => {
-      
+      unsubscribe();
     };
   }, []);
 
   
-  //2.ambil user yang sedang login
+  // 2. Pantau auth dan ambil profil user yang sedang login
   useEffect(() => {
-    const usersRef = ref(database, 'users');
-    const currentUser = auth.currentUser;  
+    setLoading(true);
+    let unsubscribeProfile: (() => void) | null = null;
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
+      // Bersihkan listener profil sebelumnya jika ada
+      if (unsubscribeProfile) {
+        unsubscribeProfile();
+        unsubscribeProfile = null;
+      }
 
-    if (currentUser) {
-      onValue(usersRef, (snapshot) => {
-        const data = snapshot.val();
-        const userData: User[] = Object.values(data);  
-
-        
-        const loggedInUser = userData.find((user) => user.email === currentUser.email);
-        if (loggedInUser) {
-          setProfile(loggedInUser); 
-        }
-
-        setLoading(false);  
-      });
-    } else {
-      setLoading(false); 
-    }
+      if (firebaseUser) {
+        const userRef = ref(database, 'users/' + firebaseUser.uid);
+        unsubscribeProfile = onValue(userRef, (snapshot) => {
+          const data = snapshot.val();
+          setProfile(data || null);
+          setLoading(false);
+        }, (error) => {
+          console.error('Error fetching user profile:', error);
+          setProfile(null);
+          setLoading(false);
+        });
+      } else {
+        setProfile(null);
+        setLoading(false);
+      }
+    });
 
     return () => {
-      
+      unsubscribeAuth();
+      if (unsubscribeProfile) unsubscribeProfile();
     };
-  }, [users]);
+  }, []);
 
 
   //3.menambahkan user baru
@@ -103,14 +105,7 @@ const useUsers = () => {
   };
 
 
-  //5.ambil profile user yang sedang login
-  useEffect(() => {
-    const currentUser = auth.currentUser;  
-    if (currentUser) {
-      const userProfile = users.find(user => user.email === currentUser.email);
-      setProfile(userProfile); 
-    }
-  }, [users]); 
+  // Catatan: Profil kini dipantau langsung lewat node 'users/{uid}' di atas.
 
 
   //6.mengupdate profile user yang sedang login
