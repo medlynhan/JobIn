@@ -10,8 +10,8 @@ export default function Error() {
       <Image
         src="/error-image.png"
         alt="Error"
-        width={300}
-        height={300}
+        width={200}
+        height={200}
         priority
       />
 

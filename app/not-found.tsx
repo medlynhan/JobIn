@@ -18,7 +18,7 @@ export default function NotFound() {
     <div className="relative loading-page flex flex-col items-center justify-center min-h-screen space-y-4">
       <Button
         onClick={handleBack}
-        className="absolute top-5 right-5 bg-primary/30 rounded-full text-neutral-600 font-bold hover:text-background"
+        className="absolute top-5 right-5 bg-primary/30 rounded-full text-neutral-600 py-5 font-bold hover:text-background"
       >
         <X className="w-6 h-6" />
       </Button>
@@ -26,8 +26,8 @@ export default function NotFound() {
       <Image
         src="/error-image.png"
         alt="Error"
-        width={300}
-        height={300}
+        width={200}
+        height={200}
         priority
       />
 
