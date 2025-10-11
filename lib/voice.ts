@@ -8,15 +8,15 @@ export function parseIntent(text: string): { navigateTo?: string; back?: boolean
   const t = text.toLowerCase();
   const open = /(ke|buka|pergi|menuju|open|go to|goto)\s+/;
   if (/\b(kembali|back)\b/.test(t)) return { back: true, announce: "Kembali" };
-  if ((open.test(t) && /kelas/.test(t)) || /\bkelas\b/.test(t)) return { navigateTo: "/kelas", announce: "Membuka halaman kelas" };
-  if ((open.test(t) && /(profil|profile)/.test(t)) || /\b(profil|profile)\b/.test(t)) return { navigateTo: "/profil", announce: "Membuka profil" };
-  if ((open.test(t) && /(beranda|home)/.test(t)) || /\b(beranda|home)\b/.test(t)) return { navigateTo: "/", announce: "Membuka beranda" };
+  if ((open.test(t) && /kelas/.test(t)) || /\bkelas\b/.test(t)) return { navigateTo: "/protected/kelas", announce: "Membuka halaman kelas" };
+  if ((open.test(t) && /(profil|profile)/.test(t)) || /\b(profil|profile)\b/.test(t)) return { navigateTo: "/protected/profil", announce: "Membuka profil" };
+  if ((open.test(t) && /(beranda|home)/.test(t)) || /\b(beranda|home)\b/.test(t)) return { navigateTo: "/protected/beranda", announce: "Membuka beranda" };
   if ((open.test(t) && /(login|masuk)/.test(t)) || /\b(login|masuk)\b/.test(t)) return { navigateTo: "/login", announce: "Membuka halaman masuk" };
   if (open.test(t) || /\b(pekerjaan|jobs?)\b/.test(t)) {
-    if (/\b(pekerjaan|jobs?)\b/.test(t)) return { navigateTo: "/pekerjaan", announce: "Membuka halaman pekerjaan" };
+    if (/\b(pekerjaan|jobs?)\b/.test(t)) return { navigateTo: "/protected/pekerjaan", announce: "Membuka halaman pekerjaan" };
   }
   // Additional routes in the app
-  if ((open.test(t) && /(kelas|courses|class)/.test(t)) || /\b(courses|class)\b/.test(t)) return { navigateTo: "/kelas", announce: "Membuka halaman kelas" };
+  if ((open.test(t) && /(kelas|courses|class)/.test(t)) || /\b(courses|class)\b/.test(t)) return { navigateTo: "/protected/kelas", announce: "Membuka halaman kelas" };
   if ((open.test(t) && /(edit profil|edit profile)/.test(t)) || /\b(edit profil|edit profile)\b/.test(t)) return { navigateTo: "/protected/edit-profil", announce: "Membuka edit profil" };
   if ((open.test(t) && /(profil saya|my profile)/.test(t))) return { navigateTo: "/profil", announce: "Membuka profil" };
   if ((open.test(t) && /(tentang kami|about)/.test(t)) || /\b(tentang kami|about)\b/.test(t)) return { navigateTo: "/protected/tentang-kami", announce: "Membuka tentang kami" };

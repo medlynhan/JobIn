@@ -29,14 +29,18 @@ export function useUserLocation() {
 
         // Reverse geocoding in Indonesian
         const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=id`;
-        fetch(url, { headers: { Accept: "application/json" } })
+        fetch(url, { headers: { Accept: "application/json", "Accept-Language": "id" } })
           .then((r) => r.json())
           .then((data) => {
             if (cancelled) return;
             const addr = data?.address || {};
-            // Only city/town/village/suburb/county
-            const city = addr.city || addr.town || addr.village || addr.suburb || addr.county;
-            setLabel(city || "Di dekat Anda");
+            // Localized label: locality + province/region when available
+            const locality = addr.city || addr.town || addr.village || addr.suburb || addr.county || addr.hamlet;
+            const province = addr.state || addr.region;
+            const pretty = [locality, province]
+              .filter(Boolean)
+              .join(", ") || (data?.display_name ? String(data.display_name).split(",").slice(0, 2).join(", ") : null) || "Di dekat Anda";
+            setLabel(pretty);
             setStatus("resolved");
           })
           .catch(() => {

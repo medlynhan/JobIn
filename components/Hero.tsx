@@ -52,6 +52,9 @@ const Hero = () => {
                 <p className="text-muted-foreground">
                   Apa yang bisa aku bantu ?
                 </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Untuk mengaktifkan Jobi, tekan tombol di kanan bawah.
+                </p>
               </div>
             </div>
           </div>
