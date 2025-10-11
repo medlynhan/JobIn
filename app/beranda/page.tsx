@@ -18,7 +18,6 @@ const Index = () => {
         <Recommendations />
       </main>
       <Footer />
-      {/*<FloatingVoiceButton />*/}
     </div>
   );
 };

@@ -10,9 +10,11 @@ import useUsers from '@/hooks/useUsers';
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import {Navbar} from "@/components/ui/navbar";
+import { useUserLocation } from "@/hooks/useUserLocation";
 
 const Profile = () => {
   const { profile, loading } = useUsers(); 
+  const { label: locationLabel } = useUserLocation();
 
   if (loading) {
     return <div className="loading-page">Loading...</div>;  
@@ -40,12 +42,12 @@ const Profile = () => {
                   />
                   <div className="flex-1 text-center md:text-left">
                     <h1 className="text-3xl font-bold text-foreground mb-2">{profile.username}</h1>
-                    <p className="text-xl text-muted-foreground mb-4">{profile.deskripsi || 'Belum ada deskripsi'}</p>
+                    <p className="text-xl font-semibold mb-4 text-primary">{profile.pekerjaan || 'Belum ada deskripsi'}</p>
 
                     <div className="flex flex-wrap gap-4 justify-center md:justify-start text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <MapPin className="h-4 w-4" />
-                        <span>{profile.lokasi || "-"}</span>
+                        <span className="inline" title={locationLabel}>{locationLabel}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4" />
@@ -104,7 +106,7 @@ const Profile = () => {
                     {profile.keahlian.map((skill : any, index : any) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
+                        className="flex items-center justify-between p-4 bg-muted/50 rounded-lg bg-primary/20 "
                       >
                         <span className="font-medium text-foreground">{skill}</span>
                       </div>
@@ -114,26 +116,6 @@ const Profile = () => {
               </Card>
             )}
 
-            {/* Preferensi Pekerjaan */}
-            {profile.pekerjaan && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Preferensi Pekerjaan</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Tipe Pekerjaan</p>
-                      <p className="font-medium text-foreground">{profile.pekerjaan}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Lokasi yang Diinginkan</p>
-                      <p className="font-medium text-foreground">{profile.lokasi}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </div>
