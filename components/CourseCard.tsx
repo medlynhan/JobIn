@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Course } from "@/lib/types"
+import Link from "next/link"
 
 interface CourseCardProps {
   course: Course
@@ -15,6 +16,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group flex-shrink-0 w-full">
+      {/* Image */}
       <div className="relative overflow-hidden">
         <img
           src={course.image || "/placeholder.svg"}
@@ -27,10 +29,13 @@ const CourseCard = ({ course }: CourseCardProps) => {
           </Badge>
         )}
       </div>
+
+      {/* Info */}
       <CardContent className="p-4 space-y-2">
         <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
           {course.title}
         </h3>
+
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
@@ -42,8 +47,12 @@ const CourseCard = ({ course }: CourseCardProps) => {
           </div>
         </div>
       </CardContent>
+
+      {/* Join Button with Link */}
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full rounded-lg font-medium">Join Course</Button>
+        <Link href={`/protected/kelas/${course.id}`} className="w-full">
+          <Button className="w-full rounded-lg font-medium">Join Course</Button>
+        </Link>
       </CardFooter>
     </Card>
   )
