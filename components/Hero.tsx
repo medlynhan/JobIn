@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image, { type StaticImageData } from "next/image";
 import VoiceAssistantButton from "@/components/VoiceAssistantFloating";
+import { ArrowDown } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -53,6 +54,13 @@ const Hero = () => {
                   Apa yang bisa aku bantu ?
                 </p>
               </div>
+              <Button
+                size="lg"
+                className="rounded-xl bg-transparent hover:bg-transparent font-semibold text-foreground w-full font-bold transition-all flex items-center justify-center gap-2 "
+              >
+                Klik tombol di kanan bawah
+                <ArrowDown className="w-5 h-5 text-foreground animate-bounce" />
+              </Button>
             </div>
           </div>
         </div>
