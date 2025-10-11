@@ -27,18 +27,16 @@ export function useUserLocation() {
         const { latitude, longitude } = coords;
         setCoords({ latitude, longitude });
 
-        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+        // Reverse geocoding in Indonesian
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=id`;
         fetch(url, { headers: { Accept: "application/json" } })
           .then((r) => r.json())
           .then((data) => {
             if (cancelled) return;
             const addr = data?.address || {};
+            // Only city/town/village/suburb/county
             const city = addr.city || addr.town || addr.village || addr.suburb || addr.county;
-            const admin = addr.state || addr.region;
-            const pretty = [city, admin].filter(Boolean).join(", ") ||
-              (data?.display_name ? String(data.display_name).split(",").slice(0, 2).join(", ") : null) ||
-              "Di dekat Anda";
-            setLabel(pretty);
+            setLabel(city || "Di dekat Anda");
             setStatus("resolved");
           })
           .catch(() => {

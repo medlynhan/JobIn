@@ -36,7 +36,7 @@ export function JobCard({ job }: Props) {
 
         <div className="mt-auto">
           <Button variant="outline" className="h-10 w-full rounded-xl bg-transparent">
-            View Details
+            Lihat Detail
           </Button>
         </div>
       </div>

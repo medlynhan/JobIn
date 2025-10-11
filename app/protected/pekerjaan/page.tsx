@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { JobsBrowser } from "@/components/JobsBrowser"
 import Header from "@/components/Header"
+import JobsCarousel from  "@/components/JobsCarousel";
+
 
 export const metadata: Metadata = {
   title: "Cari Pekerjaan",
@@ -22,13 +24,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <header className="mb-6">
-          <h2 className="text-2xl font-semibold md:text-3xl">Pekerjaan di Sekitarmu</h2>
-          <p className="text-muted-foreground">Berdasarkan lokasi: Jakarta</p>
-        </header>
-        <JobsBrowser showOnlyList />
-      </section>
+    <JobsCarousel />
     </main>
     </>
   )

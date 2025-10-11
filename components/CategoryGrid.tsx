@@ -8,14 +8,14 @@ export type Category = {
 }
 
 const defaultCategories: Category[] = [
-  { id: "penjahit", label: "Penjahit", emoji: "✂️" },
-  { id: "tukang", label: "Tukang", emoji: "🔨" },
-  { id: "driver", label: "Driver", emoji: "🚗" },
-  { id: "housekeeper", label: "Housekeeper", emoji: "🧹" },
-  { id: "pedagang", label: "Pedagang", emoji: "🛒" },
-  { id: "cleaning", label: "Cleaning", emoji: "🧽" },
-  { id: "tukang-kebun", label: "Tukang Kebun", emoji: "🌱" },
-  { id: "admin-toko", label: "Admin Toko", emoji: "📋" },
+  { id: "Penjahit", label: "Penjahit", emoji: "✂️" },
+  { id: "Tukang", label: "Tukang", emoji: "🔨" },
+  { id: "Supir", label: "Supir", emoji: "🚗" },
+  { id: "Housekeeping", label: "Housekeeper", emoji: "🧹" },
+  { id: "Pedagang", label: "Pedagang", emoji: "🛒" },
+  { id: "Teknisi", label: "Teknisi", emoji: "🛠️" },       // changed from "cleaning"
+  { id: "Pemasak", label: "Pemasak", emoji: "👩‍🍳" },     // changed from "tukang-kebun"
+  { id: "Admin", label: "Admin", emoji: "📋" },
 ]
 
 type Props = {

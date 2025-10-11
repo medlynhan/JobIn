@@ -8,6 +8,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { fetchJobs } from "@/lib/jobs";
 import type { Job } from "@/lib/types";
 import { useUserLocation } from "@/hooks/useUserLocation"; // your hook
+import Link from "next/link";
 
 const JobsCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false, slidesToScroll: 1 });
@@ -33,12 +34,14 @@ const JobsCarousel = () => {
     loadJobs();
   }, []);
 
-  // Filter jobs based on city (label from useUserLocation)
-  const nearbyJobs = label
-    ? jobs.filter((job) =>
-        job.location.toLowerCase().includes(label.split(",")[0].toLowerCase())
-      )
-    : jobs; // fallback to all jobs if location unknown
+  // Filter jobs by exact city match
+  const nearbyJobs =
+    label && label !== "Di dekat Anda"
+      ? jobs.filter((job) => {
+          const jobCity = job.location.split(",")[0].trim().toLowerCase();
+          return jobCity === label.toLowerCase();
+        })
+      : jobs;
 
   return (
     <section id="jobs" className="py-12 bg-secondary/30 px-10 lg:px-20">
@@ -83,11 +86,13 @@ const JobsCarousel = () => {
           </div>
         )}
 
-        <div className="mt-8 text-center">
+      <div className="mt-8 text-center">
+        <Link href="/protected/pekerjaan">
           <Button variant="outline" size="lg" className="rounded-xl font-medium">
-            View All Jobs
+            Lihat Semua
           </Button>
-        </div>
+        </Link>
+      </div>
       </div>
     </section>
   );
