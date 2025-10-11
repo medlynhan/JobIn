@@ -46,7 +46,7 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
 
       // Jika login berhasil, arahkan ke halaman beranda
-      router.push('/beranda');
+      router.push('/protected/beranda');
     } catch (error) {
       setErrorMsg('Email atau password salah.');
       console.error("Error during login:", error);

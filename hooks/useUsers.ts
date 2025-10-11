@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { auth,database } from '@/lib/firebase';
 import { ref, onValue, set, update } from 'firebase/database';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 
 type User = {
   username: string;
@@ -141,7 +141,22 @@ const useUsers = () => {
     }
   };
 
-  return { users, profile, loading, error, addUser, deleteUser, updateUser };
+  // 6️ Logout user dari Firebase Auth
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      setProfile(null); // Bersihkan data profil lokal
+      return true;
+    } catch (err) {
+      console.error('Error saat logout:', err);
+      setError('Gagal logout dari Firebase');
+      return false;
+    }
+  };
+
+
+
+  return { users, profile, loading, error, addUser, deleteUser, updateUser,logoutUser };
 };
 
 export default useUsers;

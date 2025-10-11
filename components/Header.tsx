@@ -41,7 +41,7 @@ const Header = () => {
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex items-center gap-8">
           <Link
-            href="/pekerjaan"
+            href="/protected/pekerjaan"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <Briefcase className="h-4 w-4" />
@@ -49,7 +49,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href="/kelas"
+            href="/protected/kelas"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <GraduationCap className="h-4 w-4" />
@@ -57,7 +57,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href="/profil"
+            href="/protected/profil"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <User className="h-4 w-4" />
@@ -65,7 +65,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href="/tentang-kami"
+            href="/protected/tentang-kami"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <Info className="h-4 w-4" />
@@ -100,7 +100,7 @@ const Header = () => {
 
               <div className="mt-2 grid gap-8 px-5">
                 <Link
-                  href="/pekerjaan"
+                  href="/protected/pekerjaan"
                   className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 >
                   <Briefcase className="h-4 w-4" />
@@ -108,7 +108,7 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href="/kelas"
+                  href="/protected/kelas"
                   className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 >
                   <GraduationCap className="h-4 w-4" />
@@ -116,7 +116,7 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href="/profil"
+                  href="/protected/profil"
                   className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 >
                   <User className="h-4 w-4" />
@@ -124,7 +124,7 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href="/tentang-kami"
+                  href="/protected/tentang-kami"
                   className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 >
                   <Info className="h-4 w-4" />

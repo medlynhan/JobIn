@@ -11,7 +11,7 @@ const Hero = () => {
         {/* Left Column - Search */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-            Mari kita mulai!<br />
+            <span className="text-primary">Mari kita mulai!</span><br />
             Cari pekerjaan yang cocok dengan Anda.
           </h1>
           

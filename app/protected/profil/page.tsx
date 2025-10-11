@@ -12,10 +12,13 @@ import Link from "next/link";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const Profile = () => {
-  const { profile, loading } = useUsers(); 
+  const { profile, loading, logoutUser } = useUsers(); 
   const { label: locationLabel } = useUserLocation();
+  const router = useRouter();
 
   if (loading) {
     return <Loading></Loading>;  
@@ -24,6 +27,16 @@ const Profile = () => {
   if (!profile) {
     return <Error />;  
   }
+
+  const handleLogout = async () => {
+    const success = await logoutUser();
+    if (success) {
+      toast.success('Berhasil logout!');
+      router.push('/login'); // arahkan ke halaman login
+    } else {
+      toast.error('Gagal logout.');
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -67,12 +80,15 @@ const Profile = () => {
                           Edit Profil
                         </Button>
                     </Link>
-                    <Link href="/">
-                      <Button variant="outline" className="gap-2 w-full">
-                        <LogOut className="h-4 w-4" />
-                        Logout
-                      </Button>
-                    </Link>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={handleLogout}
+                      className="flex-1"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </Button>
                   </div>
                 </div>
               </CardContent>
