@@ -18,22 +18,13 @@ type User = {
 };
 
 const useUsers = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<User | null>(null);
 
-  // 1. Ambil semua user dari database (jika dibutuhkan di halaman lain)
-  useEffect(() => {
-    const usersRef = ref(database, 'users');
-    const unsubscribe = onValue(usersRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) setUsers(Object.values(data));
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  // 1. Nonaktifkan langganan semua user untuk mempercepat load (hanya user saat ini)
+  // Jika suatu halaman memang membutuhkan semua user, pertimbangkan membuat hook terpisah: useAllUsers()
 
   
   // 2. Pantau auth dan ambil profil user yang sedang login
@@ -51,7 +42,7 @@ const useUsers = () => {
         const userRef = ref(database, 'users/' + firebaseUser.uid);
         unsubscribeProfile = onValue(userRef, (snapshot) => {
           const data = snapshot.val();
-          setProfile(data || null);
+          setProfile((data as User) || null);
           setLoading(false);
         }, (error) => {
           console.error('Error fetching user profile:', error);
