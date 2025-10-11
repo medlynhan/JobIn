@@ -74,7 +74,7 @@ const Profile = () => {
                     </div>
                   </div>
                  <div className="flex gap-2">
-                    <Link href="/edit-profil">
+                    <Link href="/protected/edit-profil">
                         <Button className="gap-2 w-full">
                           <Edit className="h-4 w-4" />
                           Edit Profil

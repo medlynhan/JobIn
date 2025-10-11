@@ -33,7 +33,7 @@ const Header = () => {
           <div className="h-6 w-6">
             <img src="/logo.png" alt="JobIn logo" />
           </div>
-          <Link href="/beranda">
+          <Link href="/protected/beranda">
             <span className="font-bold text-xl text-foreground">JobIn</span>
           </Link>
         </div>

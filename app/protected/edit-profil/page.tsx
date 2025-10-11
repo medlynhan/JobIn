@@ -15,6 +15,7 @@ import Footer from '@/components/Footer';
 import useUsers from '@/hooks/useUsers';
 import { useRouter } from 'next/navigation';
 import { useUserLocation } from "@/hooks/useUserLocation";
+import Loading from '@/components/Loading';
 
 const editProfileSchema = z.object({
   name: z.string().min(2, "Nama minimal 2 karakter").max(100, "Nama maksimal 100 karakter"),
@@ -88,14 +89,14 @@ const EditProfile = () => {
       });
 
       toast.success('Profil berhasil diperbarui!');
-      router.push('/profil');
+      router.push('/protected/profil');
     } catch (error) {
       console.error(error);
       toast.error('Terjadi kesalahan saat memperbarui profil.');
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="min-h-screen flex flex-col">
