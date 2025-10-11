@@ -1,146 +1,203 @@
-"use client";
-import { useState, useEffect } from "react";
-import { User, MapPin, Mail, Phone, Edit, Briefcase } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+'use client';
+import React from 'react'
+import { Mail, Phone, Target, Users, Lightbulb, Heart, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import useUsers from '@/hooks/useUsers'; 
-import { LogOut } from "lucide-react";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
-const Profile = () => {
-  const { profile, loading } = useUsers(); 
-
-  if (loading) {
-    return <div className="loading-page">Loading...</div>;  
-  }
-
-  if (!profile) {
-    return <div className="loading-page">Profile tidak ditemukan</div>;  
-  }
-
+function page() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <div className="flex-1 bg-muted/30 px-10 lg:px-20">
-        <div className="container py-8">
-          <div className="max-w-4xl mx-auto space-y-6">
-            {/* Profile Header */}
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <img
-                    src={profile.foto || '/empty-profile.png'}  // Gambar default jika tidak ada foto
-                    alt={profile.username || 'User Photo'}
-                    className="w-32 h-32 rounded-full object-cover border-4 border-primary/10"
-                  />
-                  <div className="flex-1 text-center md:text-left">
-                    <h1 className="text-3xl font-bold text-foreground mb-2">{profile.username}</h1>
-                    <p className="text-xl text-muted-foreground mb-4">{profile.deskripsi || 'Belum ada deskripsi'}</p>
+      <main className="flex-1">
 
-                    <div className="flex flex-wrap gap-4 justify-center md:justify-start text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4" />
-                        <span>{profile.lokasi || "-"}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Mail className="h-4 w-4" />
-                        <span>{profile.email}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Phone className="h-4 w-4" />
-                        <span>{profile.nomor || "-"}</span>
-                      </div>
-                    </div>
-                  </div>
-                 <div className="flex gap-2">
-                    <Link href="/edit-profil">
-                        <Button className="gap-2 w-full">
-                          <Edit className="h-4 w-4" />
-                          Edit Profil
-                        </Button>
-                    </Link>
-                    <Link href="/">
-                      <Button variant="outline" className="gap-2 w-full">
-                        <LogOut className="h-4 w-4" />
-                        Logout
-                      </Button>
-                    </Link>
-                  </div>
+        {/* What is JobIn */}
+        <section className="py-16 md:py-20 px-10 lg:px-20">
+          <div className="container items-start justify-start ">
+            <div className="max-w-4xl mx-auto items-start justify-start ">
+              <div className="flex items-start gap-4 mb-8 justify-start md:flex-row flex-col">
+                    <Image
+                      src="/chara-fullbody.png" 
+                      alt="JobIn character illustration"
+                      width={120}
+                      height={120}
+                      className="object-contain hidden md:block"
+                    />
+                    <Image
+                      src="/chara-fullbody.png" 
+                      alt="JobIn character illustration"
+                      width={150}
+                      height={150}
+                      className="object-contain block md:hidden"
+                    />
+                <div>
+                  <h2 className="text-3xl font-bold mb-4 text-foreground">Apa itu JobIn?</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    JobIn adalah platform digital yang dirancang khusus untuk membantu pekerja sektor informal mendapatkan pekerjaan yang layak dan kesempatan pelatihan untuk meningkatkan keterampilan.
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Pengalaman */}
-            {profile.pengalaman && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Briefcase className="h-5 w-5" />
-                    Pengalaman
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{profile.pengalaman}</p>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Keahlian */}
-            {profile.keahlian && Array.isArray(profile.keahlian)  && profile.keahlian.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="h-5 w-5" />
-                    Keahlian
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {profile.keahlian.map((skill : any, index : any) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
-                      >
-                        <span className="font-medium text-foreground">{skill}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Preferensi Pekerjaan */}
-            {profile.pekerjaan && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Preferensi Pekerjaan</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Tipe Pekerjaan</p>
-                      <p className="font-medium text-foreground">{profile.pekerjaan}</p>
+              <div className="grid md:grid-cols-3 gap-6 mt-12">
+                <Card className="border-2 hover:border-primary/50 transition-colors">
+                  <CardContent className="pt-6 text-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Users className="h-6 w-6 text-primary" />
                     </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Lokasi yang Diinginkan</p>
-                      <p className="font-medium text-foreground">{profile.lokasi}</p>
+                    <h3 className="font-semibold mb-2 text-foreground">10,000+</h3>
+                    <p className="text-sm text-muted-foreground">Pencari Kerja Aktif</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 hover:border-primary/50 transition-colors">
+                  <CardContent className="pt-6 text-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Target className="h-6 w-6 text-primary" />
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                    <h3 className="font-semibold mb-2 text-foreground">500+</h3>
+                    <p className="text-sm text-muted-foreground">Lowongan Tersedia</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 hover:border-primary/50 transition-colors">
+                  <CardContent className="pt-6 text-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Heart className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold mb-2 text-foreground">100+</h3>
+                    <p className="text-sm text-muted-foreground">Kursus & Pelatihan</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Vision & Mission */}
+        <section className="py-16 md:py-20 bg-muted/30 px-10 lg:px-20">
+          <div className="container">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Visi & Misi Kami</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Vision */}
+                <Card className="border-2">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Target className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground">Visi</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Menjadi platform #1 yang memberdayakan pekerja informal di Indonesia untuk mendapatkan pekerjaan layak dan meningkatkan kualitas hidup mereka.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Mission */}
+                <Card className="border-2">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Heart className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground">Misi</h3>
+                    </div>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <ArrowRight className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Menghubungkan pekerja dengan peluang kerja terbaik</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ArrowRight className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Menyediakan pelatihan untuk meningkatkan skill</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ArrowRight className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Membangun ekosistem kerja yang inklusif</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="py-16 md:py-20 px-10 lg:px-20">
+          <div className="container">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold mb-4 text-foreground">Butuh Bantuan?</h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Tim kami siap membantu Anda! Hubungi kami melalui:
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card className="border-2 hover:border-primary/50 transition-all hover:shadow-lg">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="p-4 bg-primary/10 rounded-full">
+                        <Phone className="h-8 w-8 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2 text-foreground">Telepon</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Hubungi kami langsung
+                        </p>
+                      </div>
+                      <Button 
+                        className="w-full"
+                        onClick={() => window.location.href = 'tel:+6281234567890'}
+                      >
+                        <Phone className="h-4 w-4 mr-2" />
+                        +62 812-3456-7890
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 hover:border-primary/50 transition-all hover:shadow-lg">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="p-4 bg-primary/10 rounded-full">
+                        <Mail className="h-8 w-8 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2 text-foreground">Email</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Kirim pesan ke kami
+                        </p>
+                      </div>
+                      <Button 
+                        className="w-full"
+                        onClick={() => window.location.href = 'mailto:help@jobin.id'}
+                      >
+                        <Mail className="h-4 w-4 mr-2" />
+                        help@jobin.id
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="mt-8 p-6 bg-primary/5 rounded-lg border border-primary/10">
+                <p className="text-sm text-muted-foreground">
+                  <strong className="text-foreground">Jam Operasional:</strong> Senin - Jumat, 09:00 - 17:00 WIB
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
-
+export default page

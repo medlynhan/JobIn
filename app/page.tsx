@@ -4,7 +4,6 @@ import JobsCarousel from  "@/components/JobsCarousel";
 import CoursesCarousel from "@/components/CoursesCarousel";
 import Recommendations from   "@/components/Recommendations";
 import Footer from   "@/components/Footer";
-import FloatingVoiceButton from "@/components/FloatingVoiceButton";
 import LandingPage from "@/components/LandingPage";
 
 const Page = () => {

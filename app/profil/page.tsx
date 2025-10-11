@@ -9,24 +9,25 @@ import Footer from "@/components/Footer";
 import useUsers from '@/hooks/useUsers'; 
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import {Navbar} from "@/components/ui/navbar";
 import { useUserLocation } from "@/hooks/useUserLocation";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 const Profile = () => {
   const { profile, loading } = useUsers(); 
   const { label: locationLabel } = useUserLocation();
 
   if (loading) {
-    return <div className="loading-page">Loading...</div>;  
+    return <Loading></Loading>;  
   }
 
   if (!profile) {
-    return <div className="loading-page">Profile tidak ditemukan</div>;  
+    return <Error />;  
   }
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Header />
       
       <div className="flex-1 bg-muted/30 px-10 lg:px-20">
         <div className="container py-8">
