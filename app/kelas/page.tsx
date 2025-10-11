@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import {Navbar} from "@/components/ui/navbar";
 
 const COURSES = [
   {
@@ -27,7 +28,8 @@ const COURSES = [
 
 export default function KelasPage() {
   return (
-    // Consistent mobile-first padding
+    <>
+    <Navbar/>
     <main className="px-4 sm:px-8 lg:px-12 py-12">
       <h1 className="text-2xl font-bold mb-4">Kelas & Upskilling</h1>
       {/* The overflow-x-auto is the key to mobile responsiveness here */}
@@ -49,5 +51,6 @@ export default function KelasPage() {
         ))}
       </section>
     </main>
+    </>
   )
 }

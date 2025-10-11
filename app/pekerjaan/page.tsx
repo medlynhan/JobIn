@@ -12,7 +12,7 @@ import Link from "next/link"
 export default function JobsPage() {
     return(
     <>
-    
+    <Navbar/>
     <main className="px-4 sm:px-6 lg:px-12 py-12">
       <div className="border border-gray-300 rounded-2xl p-4 sm:p-6 lg:p-10 shadow-sm bg-white">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">

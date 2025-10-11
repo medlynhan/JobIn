@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from  "@/components/Hero";
+import {Navbar} from "@/components/ui/navbar";
 import JobsCarousel from  "@/components/JobsCarousel";
 import CoursesCarousel from "@/components/CoursesCarousel";
 import Recommendations from   "@/components/Recommendations";
@@ -9,7 +10,7 @@ import FloatingVoiceButton from "@/components/FloatingVoiceButton";
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Navbar />
       <main className="flex-1">
         <Hero />
         <JobsCarousel />
@@ -17,7 +18,7 @@ const Index = () => {
         <Recommendations />
       </main>
       <Footer />
-      <FloatingVoiceButton />
+      {/*<FloatingVoiceButton />*/}
     </div>
   );
 };

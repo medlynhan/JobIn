@@ -64,8 +64,8 @@ const JobsCarousel = () => {
       <div className="container">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-foreground mb-2">Jobs Near You</h2>
-            <p className="text-muted-foreground">Find informal work opportunities around your location.</p>
+            <h2 className="text-3xl font-bold text-foreground mb-2">Pekerjaan di Dekat Anda</h2>
+            <p className="text-muted-foreground">Temukan pekerjaan informal di sekitar lokasi Anda.</p>
           </div>
           <div className="flex gap-2">
             <Button
