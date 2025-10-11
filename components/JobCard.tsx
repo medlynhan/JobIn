@@ -3,6 +3,7 @@
 import { MapPin, DollarSign } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 import type { Job } from "@/lib/types"
 
 type Props = {
@@ -10,9 +11,10 @@ type Props = {
 }
 
 export function JobCard({ job }: Props) {
+  const router = useRouter()
+
   return (
     <Card className="flex h-full flex-col overflow-hidden rounded-2xl">
-      {/* Fixed rectangular image */}
       <div className="w-full h-40 bg-muted overflow-hidden rounded-t-2xl">
         <img
           src={job.image || "/placeholder.svg"}
@@ -35,7 +37,11 @@ export function JobCard({ job }: Props) {
         </div>
 
         <div className="mt-auto">
-          <Button variant="outline" className="h-10 w-full rounded-xl bg-transparent">
+          <Button
+            variant="outline"
+            className="h-10 w-full rounded-xl bg-transparent"
+            onClick={() => router.push(`/protected/pekerjaan/${job.id}`)}
+          >
             Lihat Detail
           </Button>
         </div>

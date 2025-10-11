@@ -1,98 +1,91 @@
-// app/pekerjaan/[id]/page.tsx
 "use client"
 
-import { useMemo, useState } from "react"
-import useSWR from "swr"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { type Job, fetcher } from "@/lib/jobs"
+import { use, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { fetchJobById } from "@/lib/jobs"
+import type { Job } from "@/lib/types"
+import Header from "@/components/Header"
 
-export default function JobDetail({ params }: { params: { id: string } }) {
-  const { data: jobs } = useSWR<Job[]>("/api/jobs", fetcher)
-  const job = useMemo(() => jobs?.find((j) => j.id === params.id), [jobs, params.id])
-  // ... (status, reviewWorker, reviewEmployer, router remain the same)
-  const [status, setStatus] = useState<"idle" | "applied" | "confirmed" | "in-progress" | "completed" | "paid">("idle")
-  const [reviewWorker, setReviewWorker] = useState("")
-  const [reviewEmployer, setReviewEmployer] = useState("")
+export default function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
+  const [job, setJob] = useState<Job | null>(null)
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  // ... (onApply, onConfirm, onStart, onComplete, onPay, onSubmitReviews remain the same)
-  if (!jobs) return <main className="px-4 py-12">Memuat...</main>
-  if (!job) return <main className="px-4 py-12">Pekerjaan tidak ditemukan.</main>
+  useEffect(() => {
+    async function loadJob() {
+      const data = await fetchJobById(id)
+      setJob(data)
+      setLoading(false)
+    }
+    loadJob()
+  }, [id])
 
-  const onApply = () => setStatus("applied")
-  const onConfirm = () => setStatus("confirmed")
-  const onStart = () => setStatus("in-progress")
-  const onComplete = () => setStatus("completed")
-  const onPay = async () => {
-    const res = await fetch("/api/payments/checkout", { method: "POST", body: JSON.stringify({ jobId: job.id }) })
-    if (res.ok) setStatus("paid")
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <Card className="p-8 rounded-2xl w-full max-w-3xl space-y-4">
+          <Skeleton className="h-64 w-full rounded-xl" />
+          <Skeleton className="h-8 w-2/3" />
+          <Skeleton className="h-4 w-1/2" />
+          <Skeleton className="h-4 w-1/3" />
+          <Skeleton className="h-10 w-24" />
+        </Card>
+      </div>
+    )
   }
-  const onSubmitReviews = () => {
-    // simple demo, no server storage
-    alert("Terima kasih! Review terkirim.")
-    router.push("/jobs")
+
+  if (!job) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-lg text-muted-foreground mb-4">
+          Pekerjaan tidak ditemukan.
+        </p>
+        <Button variant="outline" onClick={() => router.back()}>
+          Kembali
+        </Button>
+      </div>
+    )
   }
 
   return (
-    // Consistent mobile-first padding
-    <main className="px-4 sm:px-8 lg:px-12 py-12 grid gap-6">
-      {/* Stacks on mobile, side-by-side on md+ */}
-      <div className="flex gap-4 flex-col md:flex-row">
-        <Image
-          src={job.image || "/placeholder.svg"}
-          alt={job.title}
-          // Responsive image sizing
-          width={480}
-          height={320}
-          className="rounded-xl object-cover w-full md:w-auto md:max-w-xs lg:max-w-md"
-        />
-        <div className="flex-1">
-          <h1 className="text-2xl font-bold">{job.title}</h1>
-          <p className="text-gray-600 mt-1">
-            {job.location} • {job.distanceKm} km • {job.rate}
-          </p>
-          <p className="mt-4 text-gray-700">{job.description}</p>
-
-          <div className="mt-6 flex flex-wrap gap-2"> {/* flex-wrap handles overflow */}
-            {status === "idle" && <Button onClick={onApply}>Lamar</Button>}
-            {status === "applied" && <Button onClick={onConfirm}>Konfirmasi (Pemberi Kerja)</Button>}
-            {status === "confirmed" && <Button onClick={onStart}>Mulai Kerja</Button>}
-            {status === "in-progress" && <Button onClick={onComplete}>Selesaikan</Button>}
-            {status === "completed" && <Button onClick={onPay}>Bayar</Button>}
-            {status === "paid" && <span className="text-green-600 font-semibold">Pembayaran berhasil</span>}
+    <>
+      <Header />
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <Card className="flex flex-col md:flex-row items-start w-full max-w-5xl p-8 rounded-3xl shadow-lg bg-white gap-8">
+          {/* Left: Image */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <img
+              src={job.image || "/placeholder.svg"}
+              alt={job.title}
+              className="w-full h-80 object-cover rounded-2xl shadow-md"
+            />
           </div>
-        </div>
+
+          {/* Right: Details */}
+          <div className="flex-1 space-y-4">
+            <h1 className="text-3xl font-bold">{job.title}</h1>
+            <p className="text-muted-foreground">📍 {job.location}</p>
+            <p className="text-green-600 font-semibold text-lg">💰 {job.pay}</p>
+
+            <div className="text-sm leading-relaxed space-y-1">
+              <p><strong>Status:</strong> {job.status}</p>
+              <p><strong>Kategori:</strong> {job.category}</p>
+              <p><strong>Employer:</strong> {job.employer}</p>
+              <p><strong>Tanggal posting:</strong> {job.postedDate}</p>
+            </div>
+
+            <div className="pt-4">
+              <Button variant="outline" onClick={() => router.back()}>
+                Kembali
+              </Button>
+            </div>
+          </div>
+        </Card>
       </div>
-
-      {status === "paid" && (
-        <section className="bg-white rounded-xl p-4 shadow grid gap-4">
-          <h2 className="text-lg font-semibold">Ulasan dua arah</h2>
-          {/* Stacks on mobile, two columns on md+ */}
-          <div className="grid md:grid-cols-2 gap-4"> 
-            <div>
-              <label className="text-sm text-gray-600">Ulasan untuk Pekerja</label>
-              <textarea
-                className="w-full mt-1 rounded border p-2"
-                rows={4}
-                value={reviewWorker}
-                onChange={(e) => setReviewWorker(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="text-sm text-gray-600">Ulasan untuk Pemberi Kerja</label>
-              <textarea
-                className="w-full mt-1 rounded border p-2"
-                rows={4}
-                value={reviewEmployer}
-                onChange={(e) => setReviewEmployer(e.target.value)}
-              />
-            </div>
-          </div>
-          <Button onClick={onSubmitReviews}>Kirim Ulasan</Button>
-        </section>
-      )}
-    </main>
+    </>
   )
 }
