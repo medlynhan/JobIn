@@ -15,9 +15,10 @@ const CourseCard = ({ course }: CourseCardProps) => {
   if (!course) return null
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group flex-shrink-0 w-full">
+    <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+
       {/* Image */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden ">
         <img
           src={course.image || "/placeholder.svg"}
           alt={course.title || "Course image"}
@@ -31,7 +32,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
       </div>
 
       {/* Info */}
-      <CardContent className="p-4 space-y-2">
+      <CardContent className="p-4 space-y-2 flex-1">
         <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
           {course.title}
         </h3>
@@ -49,7 +50,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
       </CardContent>
 
       {/* Join Button with Link */}
-      <CardFooter className="p-4 pt-0">
+      <CardFooter className="p-4 pt-0 ">
         <Link href={`/protected/kelas/${course.id}`} className="w-full">
           <Button className="w-full rounded-lg font-medium">Ikuti Kelas</Button>
         </Link>
