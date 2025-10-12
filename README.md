@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JobIn
+
+JobIn is the job-seeker web app in the JobIn ecosystem, built with Next.js and TypeScript. It helps users discover and apply for nearby jobs, join skill-building classes, and includes a voicebot that assists blind and low‑vision users with navigating and using the site.
+
+## Overview
+
+With JobIn you can:
+- Browse and apply to available jobs around you
+- Enroll in provided skill classes to improve your qualifications
+- Use a built-in voicebot to navigate and complete tasks more easily (accessibility‑focused)
+
+## Tech Stack
+
+- Next.js + React — App framework, routing, SSR/SSG, UI
+- TypeScript — Type‑safe application code
+- Firebase — App platform (Auth, database/storage as configured)
+- Firebase Auth — Authentication for users
+- Cloudinary — Media management and image delivery
+- Vercel — Hosting and CI/CD for the Next.js app
+- CSS — Styling
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Next.js 18+ (LTS recommended)
+- A package manager: npm (bundled with Next), pnpm, or Yarn
+- A Firebase project (for Auth and other services you use)
+- A Cloudinary account (for media)
 
-```bash
-npm run dev
+### Installation
+
+```sh
+# Clone the repository
+git clone https://github.com/medlynhan/JobIn.git
+cd JobIn
+
+# Install dependencies (pick one)
+npm install
 # or
-yarn dev
+pnpm install
 # or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the project root and add your values. Common examples:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Firebase (client-side keys must be NEXT_PUBLIC_ to be exposed to the browser)
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-## Learn More
+# Cloudinary
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+NEXT_PUBLIC_CLOUDINARY_API_KEY=your_api_key
+NEXT_PUBLIC_CLOUDINARY_API_SECRET=your_api_secret
+```
 
-To learn more about Next.js, take a look at the following resources:
+Notes:
+- In Next.js, variables available to the browser must be prefixed with `NEXT_PUBLIC_`.
+- Do not expose server-only secrets (like `CLOUDINARY_API_SECRET`) to the client.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Run in Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npm run dev
+```
 
-## Deploy on Vercel
+- App runs at http://localhost:3000
+- You may be prompted by the browser to allow microphone access (voicebot) and location access (nearby jobs).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Build and Run in Production
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```sh
+# Create an optimized production build
+npm run build
+
+# Start the production server
+npm start
+```
+
+Ensure all required environment variables are set on your host before starting.
+
+## Accessibility
+
+- Voicebot: The app includes a voice assistant designed to help blind and low‑vision users navigate and perform key actions.
+  - Requires microphone permission in the browser.
+  - Look for an on‑screen toggle or settings entry to enable it.
+
+## Deployment (Vercel)
+
+1. Push your repository to GitHub.
+2. In [Vercel](https://vercel.com/), click “New Project” and import the repository.
+3. Framework preset: Next.js (auto-detected).
+4. Add the same environment variables from `.env.local` to the Vercel project settings.
+5. Deploy. Vercel will build and host the app, and automatically redeploy on new commits.
