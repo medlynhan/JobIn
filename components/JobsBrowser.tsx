@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import useSWR from "swr"
+import { useSearchParams } from "next/navigation"
 import { SearchInput } from "./SearchInput"
 import { CategoryGrid } from "./CategoryGrid"
 import { JobCard } from "./JobCard"
@@ -13,7 +14,10 @@ type Props = {
 }
 
 export function JobsBrowser({ showOnlyList = false }: Props) {
-  const [keyword, setKeyword] = React.useState("")
+  const searchParams = useSearchParams()
+  const initialSearch = searchParams.get("search") || ""
+
+  const [keyword, setKeyword] = React.useState(initialSearch)
   const [category, setCategory] = React.useState<string | null>(null)
 
   const { data, isLoading, error } = useSWR("jobs", fetchJobs, {
@@ -37,7 +41,7 @@ export function JobsBrowser({ showOnlyList = false }: Props) {
         </div>
       )}
 
-    <div className="mt-8 grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-10 lg:px-20">
+      <div className="mt-8 grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-10 lg:px-20">
         {isLoading &&
           Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="h-72 animate-pulse rounded-2xl bg-muted" />

@@ -1,13 +1,22 @@
-import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Image, { type StaticImageData } from "next/image";
-import VoiceAssistantButton from "@/components/VoiceAssistantFloating";
-import { ArrowDown } from "lucide-react";
+"use client"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Search, ArrowDown } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 const Hero = () => {
+  const [query, setQuery] = useState("")
+  const router = useRouter()
+
+  const handleSearch = () => {
+    if (query.trim() === "") return
+    router.push(`/protected/pekerjaan?search=${encodeURIComponent(query)}`)
+  }
+
   return (
-    <section className="container py-12 md:py-20  px-10 lg:px-20">
+    <section className="container py-12 md:py-20 px-10 lg:px-20">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         {/* Left Column - Search */}
         <div className="space-y-6">
@@ -23,9 +32,15 @@ const Hero = () => {
                 type="text"
                 placeholder="Contoh: pekerja bangunan, supir, tukang AC..."
                 className="pl-12 pr-4 py-6 text-base rounded-xl border-2 focus:border-primary"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-            <Button size="lg" className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all">
+            <Button
+              size="lg"
+              className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all"
+              onClick={handleSearch}
+            >
               Cari Sekarang
             </Button>
           </div>
@@ -37,7 +52,7 @@ const Hero = () => {
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="relative">
                 <img
-                  src= "/maskot-AI.png"
+                  src="/maskot-AI.png"
                   alt="vAI Voice Assistant"
                   className="w-48 h-48 rounded-full shadow-lg"
                 />
@@ -45,7 +60,7 @@ const Hero = () => {
                   AI
                 </div>
               </div>
-              
+
               <div className="bg-card rounded-2xl p-6 shadow-md">
                 <p className="text-lg font-medium text-foreground mb-1">
                   Hi, Aku Jobi 👋
@@ -66,7 +81,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
