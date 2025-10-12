@@ -23,7 +23,7 @@ type Props = {
 
 export function LevelGrid({ value, onChange, levels = defaultLevels }: Props) {
   return (
-    <div className="mt-8">
+    <div className="my-8">
       <h3 className="text-xl font-semibold md:text-2xl">Tingkat Kesulitan</h3>
       <div
         className="

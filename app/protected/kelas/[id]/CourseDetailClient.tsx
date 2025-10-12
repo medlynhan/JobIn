@@ -84,9 +84,9 @@ export function CourseDetailClient({ course }: Props) {
               {course.content?.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-3 rounded-xl bg-[#BCD2E6]/70 p-3 hover:bg-[#4F90C4] transition-colors"
+                  className="flex items-center gap-3 rounded-xl bg-primary/20 p-3 hover:bg-primary/30 transition-colors"
                 >
-                  <PlayCircle className="h-5 w-5 text-blue-700" />
+                  <PlayCircle className="h-5 w-5 text-primary" />
                   <p className="text-sm font-medium">
                     {item.id}. {item.title}
                   </p>
