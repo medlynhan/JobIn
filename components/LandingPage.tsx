@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const LandingPage = () => {
   return (
+    //landing page
     <section className="relative overflow-hidden gradient-subtle py-20 md:py-32 px-10 lg:px-20">
       <div className="absolute z-10 top-5 left-5 flex gap-2 ">
         <img src="/logo.png" alt="logo" className="object-cover h-6 w-6" />
