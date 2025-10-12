@@ -11,7 +11,8 @@ const LandingPage = () => {
         <img src="/logo.png" alt="logo" className="object-cover h-6 w-6" />
         <span className="font-bold text-xl text-foreground">JobIn</span>
       </div>
-
+      
+ 
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
