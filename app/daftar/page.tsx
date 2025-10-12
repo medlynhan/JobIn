@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 export default function RegisterPage() {
   const { addUser, users, loading, error } = useUsers();  
@@ -54,7 +55,7 @@ export default function RegisterPage() {
 
   // Render loading state
   if (loading) {
-    return <div className='loading-page'>Loading...</div>;
+    return <Loading />;
   }
 
   return (
