@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server"
-import { JOBS } from "@/lib/jobs"
+import { fetchJobs } from "@/lib/jobs"
 
 export async function GET() {
-  return NextResponse.json(JOBS)
+  try {
+    const jobs = await fetchJobs()
+    return NextResponse.json(jobs)
+  } catch (e) {
+    return NextResponse.json({ error: "Gagal memuat pekerjaan" }, { status: 500 })
+  }
 }
 
 export async function POST(req: Request) {
