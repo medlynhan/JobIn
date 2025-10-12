@@ -9,10 +9,16 @@ import { fetchJobById } from "@/lib/jobs"
 import type { Job } from "@/lib/types"
 import Header from "@/components/Header"
 
+  import { auth, database } from "@/lib/firebase"
+  import { ref, set, serverTimestamp, get, onValue } from "firebase/database"
 export default function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [job, setJob] = useState<Job | null>(null)
   const [loading, setLoading] = useState(true)
+  const [applyLoading, setApplyLoading] = useState(false)
+  const [applied, setApplied] = useState(false)
+  const [applyError, setApplyError] = useState<string | null>(null)
+  const [applicationStatus, setApplicationStatus] = useState<"pending" | "accepted" | "rejected" | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -24,6 +30,50 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
     loadJob()
   }, [id])
 
+  useEffect(() => {
+    const currentUser = auth.currentUser
+    if (!currentUser || !id) return
+    const key = `${id}_${currentUser.uid}`
+    const lowRef = ref(database, `lowongan/${key}`)
+    const unsubscribe = onValue(lowRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.val()
+        setApplied(true)
+        const st = (data?.status as "pending" | "accepted" | "rejected") || "pending"
+        setApplicationStatus(st)
+      } else {
+        setApplied(false)
+        setApplicationStatus(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [id])
+
+  async function handleApply() {
+    setApplyError(null)
+    const currentUser = auth.currentUser
+    if (!currentUser) {
+      router.push("/login")
+      return
+    }
+    try {
+      setApplyLoading(true)
+      const key = `${id}_${currentUser.uid}`
+      const lowRef = ref(database, `lowongan/${key}`)
+      await set(lowRef, {
+        job_id: id,
+        pelamar_id: currentUser.uid,
+        status: "pending",
+        applied_at: serverTimestamp(),
+      })
+      setApplied(true)
+      setApplicationStatus("pending")
+    } catch (e) {
+      setApplyError("Gagal mengirim lamaran. Coba lagi nanti.")
+    } finally {
+      setApplyLoading(false)
+    }
+  }
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -79,9 +129,47 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             </div>
 
             <div className="pt-4">
-              <Button variant="outline" onClick={() => router.back()}>
-                Kembali
-              </Button>
+              <div className="flex gap-3 flex-wrap">
+                <Button variant="outline" onClick={() => router.back()}>
+                  Kembali
+                </Button>
+                {job.status?.toLowerCase() === "open" ? (
+                  applied ? (
+                    <Button disabled variant="default">
+                      Sudah melamar
+                    </Button>
+                  ) : (
+                    <Button onClick={handleApply} disabled={applyLoading}>
+                      {applyLoading ? "Mengirim…" : "Lamar Sekarang"}
+                    </Button>
+                  )
+                ) : (
+                  <Button disabled variant="secondary">
+                    Lowongan Ditutup
+                  </Button>
+                )}
+                {applyError && (
+                  <p className="text-sm text-red-500 mt-2 w-full">{applyError}</p>
+                )}
+                {applied && !applyError && (
+                  <p className="text-sm mt-2 w-full">
+                    Status lamaran: {" "}
+                    <span className={
+                      applicationStatus === "accepted"
+                        ? "text-green-600"
+                        : applicationStatus === "rejected"
+                        ? "text-red-600"
+                        : "text-amber-600"
+                    }>
+                      {applicationStatus === "accepted"
+                        ? "Diterima"
+                        : applicationStatus === "rejected"
+                        ? "Ditolak"
+                        : "Menunggu"}
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </Card>
