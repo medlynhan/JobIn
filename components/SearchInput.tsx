@@ -26,7 +26,6 @@ export function SearchInput({ value, onChange, placeholder = "Cari pekerjaan..."
         aria-label="Voice search (coming soon)"
         className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:bg-accent"
       >
-        <Mic className="h-5 w-5" />
       </button>
     </div>
   )

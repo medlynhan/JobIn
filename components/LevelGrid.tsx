@@ -40,12 +40,12 @@ export function LevelGrid({ value, onChange, levels = defaultLevels }: Props) {
               onClick={() => onChange?.(active ? null : lvl.id)}
               className={cn(
                 "flex flex-col items-center justify-center rounded-2xl border bg-card px-8 py-8 text-center transition-all",
-                "hover:bg-accent hover:shadow-sm",
+                "bg-primary/20 hover:bg-primary/30  hover:shadow-sm",
                 active && "border-primary bg-primary/10 shadow-md"
               )}
               aria-pressed={active}
             >
-              <Icon className={cn("h-10 w-10", active ? "text-primary" : "text-muted-foreground")} />
+              <Icon className={cn("h-10 w-10 text-primary")} />
               <div className="mt-3 font-medium text-lg">{lvl.label}</div>
             </button>
           )

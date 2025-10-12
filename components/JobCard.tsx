@@ -31,7 +31,7 @@ export function JobCard({ job }: Props) {
           <span className="text-sm">{job.location}</span>
         </div>
 
-        <div className="flex items-center gap-2 font-medium text-chart-5">
+        <div className="flex items-center gap-2 font-bold text-primary ">
           <span className="text-sm">{job.pay}</span>
         </div>
 

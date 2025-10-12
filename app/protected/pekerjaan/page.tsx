@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { JobsBrowser } from "@/components/JobsBrowser"
 import Header from "@/components/Header"
 import JobsCarousel from  "@/components/JobsCarousel";
+import Footer from "@/components/Footer";
 
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default function Page() {
   return (
     <>
     <Header />
-    <main className="min-h-dvh ">
+    <main className="">
       <section className="pt-8 bg-background">
         <div className="w-full">
           <div className="px-10 lg:px-20">
@@ -21,12 +22,11 @@ export default function Page() {
             <p className="mt-2 text-muted-foreground md:text-lg w-full ">Temukan pekerjaan informal yang cocok untukmu</p>
           </div>
           <div className="mt-6">
-            <JobsBrowser />
           </div>
         </div>
       </section>
-
-    <JobsCarousel />
+      <JobsBrowser />
+      <Footer />
     </main>
     </>
   )

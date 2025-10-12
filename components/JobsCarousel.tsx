@@ -44,7 +44,7 @@ const JobsCarousel = () => {
       : jobs;
 
   return (
-    <section id="jobs" className="py-12 bg-secondary/30 px-10 lg:px-20">
+    <section id="jobs" className="py-12 bg-background px-10 lg:px-20">
       <div className="container">
         <div className="flex items-center justify-between mb-8">
           <div>

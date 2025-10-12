@@ -4,6 +4,7 @@ import JobsCarousel from  "@/components/JobsCarousel";
 import CoursesCarousel from "@/components/CoursesCarousel";
 import Recommendations from   "@/components/Recommendations";
 import Footer from   "@/components/Footer";
+import { JobsBrowser } from "@/components/JobsBrowser";
 
 const Index = () => {
   return (

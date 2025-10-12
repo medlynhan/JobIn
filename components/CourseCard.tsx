@@ -16,7 +16,6 @@ const CourseCard = ({ course }: CourseCardProps) => {
 
   return (
     <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
-
       {/* Image */}
       <div className="relative overflow-hidden ">
         <img

@@ -1,5 +1,6 @@
 import Header from "@/components/Header"
 import { CourseBrowser } from "@/components/CoursesBrowser"
+import Footer from "@/components/Footer"
 
 export default function KelasPage() {
   return (
@@ -17,6 +18,7 @@ export default function KelasPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
     </>
   )
