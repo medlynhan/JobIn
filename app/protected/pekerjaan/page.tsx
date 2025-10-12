@@ -14,13 +14,15 @@ export default function Page() {
     <>
     <Header />
     <main className="min-h-dvh ">
-      <section className="pt-8 bg-muted/60 ">
-        <div className="mx-auto max-w-6xl px-10 lg:px-0">
-          <h1 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl">Cari Pekerjaan</h1>
-          <p className="mt-2 text-muted-foreground md:text-lg">Temukan pekerjaan informal yang cocok untukmu</p>
-        </div>
-        <div className="mt-6">
-          <JobsBrowser />
+      <section className="pt-8 bg-background">
+        <div className="w-full">
+          <div className="px-10 lg:px-20">
+            <h1 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl w-full">Cari Pekerjaan</h1>
+            <p className="mt-2 text-muted-foreground md:text-lg w-full ">Temukan pekerjaan informal yang cocok untukmu</p>
+          </div>
+          <div className="mt-6">
+            <JobsBrowser />
+          </div>
         </div>
       </section>
 

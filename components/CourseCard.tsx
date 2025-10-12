@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Course } from "@/lib/types"
+import Link from "next/link"
 
 interface CourseCardProps {
   course: Course
@@ -14,8 +15,10 @@ const CourseCard = ({ course }: CourseCardProps) => {
   if (!course) return null
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group flex-shrink-0 w-full">
-      <div className="relative overflow-hidden">
+    <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+
+      {/* Image */}
+      <div className="relative overflow-hidden ">
         <img
           src={course.image || "/placeholder.svg"}
           alt={course.title || "Course image"}
@@ -27,10 +30,13 @@ const CourseCard = ({ course }: CourseCardProps) => {
           </Badge>
         )}
       </div>
-      <CardContent className="p-4 space-y-2">
+
+      {/* Info */}
+      <CardContent className="p-4 space-y-2 flex-1">
         <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
           {course.title}
         </h3>
+
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
@@ -42,8 +48,12 @@ const CourseCard = ({ course }: CourseCardProps) => {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button className="w-full rounded-lg font-medium">Join Course</Button>
+
+      {/* Join Button with Link */}
+      <CardFooter className="p-4 pt-0 ">
+        <Link href={`/protected/kelas/${course.id}`} className="w-full">
+          <Button className="w-full rounded-lg font-medium">Ikuti Kelas</Button>
+        </Link>
       </CardFooter>
     </Card>
   )

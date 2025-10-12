@@ -7,6 +7,7 @@ import CourseCard from "./CourseCard"
 import useEmblaCarousel from "embla-carousel-react"
 import { fetchCourses } from "@/lib/courses"
 import type { Course } from "@/lib/types"
+import Link from "next/link"
 
 const CoursesCarousel = () => {
   const [courses, setCourses] = useState<Course[]>([])
@@ -69,9 +70,11 @@ const CoursesCarousel = () => {
         )}
 
         <div className="mt-8 text-center">
-          <Button variant="outline" size="lg" className="rounded-xl font-medium">
-            View All Courses
-          </Button>
+          <Link href="/protected/kelas">
+            <Button variant="outline" size="lg" className="rounded-xl font-medium">
+              Lihat Semua Kelas
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
