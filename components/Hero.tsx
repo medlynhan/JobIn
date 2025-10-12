@@ -1,19 +1,23 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Search, ArrowDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Search, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Hero = () => {
-  const [query, setQuery] = useState("")
-  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
 
   const handleSearch = () => {
-    if (query.trim() === "") return
-    router.push(`/protected/pekerjaan?search=${encodeURIComponent(query)}`)
-  }
+    const query = searchTerm.trim();
+    if (query) {
+      router.push(`/protected/pekerjaan?search=${encodeURIComponent(query)}`);
+    } else {
+      router.push(`/protected/pekerjaan`);
+    }
+  };
 
   return (
     <section className="container py-12 md:py-20 px-10 lg:px-20">
@@ -21,25 +25,26 @@ const Hero = () => {
         {/* Left Column - Search */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-            <span className="text-primary">Mari kita mulai!</span><br />
+            <span className="text-primary">Mari kita mulai!</span>
+            <br />
             Cari pekerjaan yang cocok dengan Anda.
           </h1>
-          
+
           <div className="space-y-4">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 type="text"
                 placeholder="Contoh: pekerja bangunan, supir, tukang AC..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-12 pr-4 py-6 text-base rounded-xl border-2 focus:border-primary"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
             <Button
               size="lg"
-              className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all"
               onClick={handleSearch}
+              className="w-full rounded-xl font-semibold shadow-md hover:shadow-lg transition-all"
             >
               Cari Sekarang
             </Button>
@@ -81,7 +86,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
