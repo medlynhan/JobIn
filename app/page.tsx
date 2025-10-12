@@ -12,6 +12,7 @@ const Page = () => {
         <LandingPage />
     </div>
   );
-};
+}
 
+// test
 export default Page;
