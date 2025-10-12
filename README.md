@@ -44,7 +44,7 @@ yarn install
 
 ### Environment Variables
 
-Create a `.env.local` file in the project root and add your values. Common examples:
+Create a `.env` file in the project root and add your values. Common examples:
 
 ```bash
 # Firebase (client-side keys must be NEXT_PUBLIC_ to be exposed to the browser)
