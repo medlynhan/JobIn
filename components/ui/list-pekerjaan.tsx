@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { FiMapPin, FiDollarSign } from "react-icons/fi"
-import type { Job } from "@/lib/jobs"
+import type { Job } from "@/lib/types"
 
 export function JobList({ jobs }: { jobs: Job[] }) {
   if (!jobs?.length) {
