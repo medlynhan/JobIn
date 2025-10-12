@@ -10,7 +10,13 @@ const Onboarding = () => {
   const router = useRouter();
 
   const handleRoleSelect = (role: "worker" | "employer") => {
-    router.push('/daftar');
+    if (role === "worker") {
+      // arahkan ke situs eksternal
+      router.push("/daftar");
+    } else {
+      // arahkan ke halaman internal daftar
+      window.open("https://job-in-hire.vercel.app/", "_blank");
+    }
   };
 
   return (

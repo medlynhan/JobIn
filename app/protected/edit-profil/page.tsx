@@ -41,7 +41,7 @@ const EditProfile = () => {
   const [photoPreview, setPhotoPreview] = useState<string>('/empty-profile.png');
   const [photo, setPhoto] = useState<File | null>(null);
 
-  // ✅ Saat data profil tersedia, isi form dan tampilkan foto
+  // Saat data profil tersedia, isi form dan tampilkan foto
   useEffect(() => {
     if (profile) {
       setValue('name', profile.username || '');
@@ -54,7 +54,7 @@ const EditProfile = () => {
     }
   }, [profile, setValue]);
 
-  // ✅ Upload foto dan tampilkan preview
+  // Upload foto dan tampilkan preview
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -65,14 +65,14 @@ const EditProfile = () => {
     }
   };
 
-  // ✅ Ubah keahlian yang dipilih
+  // Ubah keahlian yang dipilih
   const handleSkillChange = (skill: string) => {
     setSelectedSkills(prev =>
       prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill]
     );
   };
 
-  // ✅ Saat submit
+  //Saat submit
   const onSubmit = async (data: EditProfileFormData) => {
     try {
       await updateUser({
@@ -111,7 +111,6 @@ const EditProfile = () => {
               onClick={() => window.history.back()}
             >
               <ArrowLeft className="h-4 w-4" />
-              Kembali ke Profil
             </Button>
 
             <Card>
