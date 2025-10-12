@@ -19,7 +19,8 @@ export async function fetchJobs(): Promise<Job[]> {
     employer: job.employer || "Tidak diketahui",
     image: job.picture || "/placeholder.svg",
     status: job.status || job.requirements?.status || "Tersedia",
-    uid: job.uid || job.requirements?.uid || "",
+  // Prefer top-level uid, fallback to requirements.uid for older entries
+  uid: job.uid || job.requirements?.uid || "",
     postedDate: job.postedDate || "",
   })) as Job[]
 }
@@ -31,7 +32,7 @@ export async function fetchJobById(id: string): Promise<Job | null> {
   if (!snapshot.exists()) return null
   const job = snapshot.val()
 
-  return {
+  return {  
     id,
     title: job.title || job.requirements?.title || "Tanpa Judul",
     location: job.location || "Tidak diketahui",

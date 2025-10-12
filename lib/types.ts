@@ -7,6 +7,7 @@ export type Job = {
   employer: string
   image: string
   status: string
+  uid: string
   postedDate: string
   requirements?: {
     skills?: string[]
