@@ -6,10 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
   const { addUser, users, loading, error } = useUsers();  
 
+  const route = useRouter();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,6 +45,7 @@ export default function RegisterPage() {
     if (isFormValid) {
       try {
         await addUser({ username, email, password });
+        route.push('/login');
       } catch (err) {
         console.error('Error during registration:', err);
       }
