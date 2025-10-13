@@ -19,7 +19,7 @@ export default function Page() {
               <h1 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl w-full">
                 Cari Pekerjaan
               </h1>
-              <p className="mt-2 text-muted-foreground md:text-lg w-full">
+              <p className="mt-2 mb-6 text-muted-foreground md:text-lg w-full">
                 Temukan pekerjaan informal yang cocok untukmu
               </p>
             </div>
