@@ -1,6 +1,6 @@
-# JobIn
+# 👷‍♂️🏢 JobIn - Job searching and learning for Informal Workers
 
-JobIn is the job-seeker web app in the JobIn ecosystem, built with Next.js and TypeScript. It helps users discover and apply for nearby jobs, join skill-building classes, and includes a voicebot that assists blind and low‑vision users with navigating and using the site.
+JobIn  is a web platform for informal workers looking to find jobs and learning new skills. The platform is built to address the challenges in Indonesia, where there is no digital job platform like LinkedIn that caters specifically to the needs of low-income, rural communities. With the help of an advanced *AI voice assistant*, JobIn makes it easy for those with limited digital literacy to navigate the site. It also works well with *low internet connectivity*, ensuring accessibility for users in areas with limited resources.
 
 ## Overview
 
