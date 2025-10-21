@@ -1,101 +1,37 @@
-# 👷‍♂️🏢 JobIn - Job searching and learning for Informal Workers
+# 👷‍♂️🏢 **JobIn** - Job Searching and Learning for Informal Workers
 
-JobIn  is a web platform for informal workers looking to find jobs and learning new skills. The platform is built to address the challenges in Indonesia, where there is no digital job platform like LinkedIn that caters specifically to the needs of low-income, rural communities. With the help of an advanced *AI voice assistant*, JobIn makes it easy for those with limited digital literacy to navigate the site. It also works well with *low internet connectivity*, ensuring accessibility for users in areas with limited resources.
+**JobIn** is a web platform designed for informal workers in Indonesia, helping them find jobs and learn new skills. With the help of an *AI voice assistant*, navigating the site is easy even for users with limited digital literacy. It also works in low internet connectivity areas, ensuring accessibility for rural communities.
 
-## Overview
+👉 [JobIn Live Demo](https://job-in.vercel.app/)
 
-With JobIn you can:
-- Browse and apply to available jobs around you
-- Enroll in provided skill classes to improve your qualifications
-- Use a built-in voicebot to navigate and complete tasks more easily (accessibility‑focused)
+## 👩‍💻 **Project Background**
 
-## Tech Stack
+This initiative is a project for the Study2Challenge hackathon at BSLC Binus. JobIn aims to bridge the gap in Indonesia’s job market by providing a digital platform tailored to low-income, rural communities. With a focus on accessibility and skill-building, JobIn helps users discover local job opportunities and enhance their qualifications.
 
-- Next.js + React — App framework, routing, SSR/SSG, UI
-- TypeScript — Type‑safe application code
-- Firebase — App platform (Auth, database/storage as configured)
-- Firebase Auth — Authentication for users
-- Cloudinary — Media management and image delivery
-- Vercel — Hosting and CI/CD for the Next.js app
-- CSS — Styling
+## 🚀 **Features**
+- **Job Listings**: Find and apply to jobs near you.
+- **Skill Classes**: Enroll in courses to improve your qualifications.
+- **Voicebot**: Use the AI assistant for easy navigation, perfect for those with limited digital skills.
 
-## Getting Started
+## 🛠️ **Tech Stack**
+- **Next.js + React**: Frontend framework for fast UI (SSR/SSG).
+- **TypeScript**: Type-safe code for reliability.
+- **Firebase**: For authentication, database, and storage.
+- **Cloudinary**: Manage and deliver media.
+- **Vercel**: Deployment and CI/CD.
+
+## 🚦 **Installation**
 
 ### Prerequisites
-- Next.js 18+ (LTS recommended)
-- A package manager: npm (bundled with Next), pnpm, or Yarn
-- A Firebase project (for Auth and other services you use)
-- A Cloudinary account (for media)
+Before you begin, make sure you have the following installed:
+- **Node.js** (version 18 or higher)
+- **Firebase** account
+- **Cloudinary** account
 
-### Installation
 
-```sh
-# Clone the repository
-git clone https://github.com/medlynhan/JobIn.git
-cd JobIn
+Start the development server:
 
-# Install dependencies (pick one)
-npm install
-# or
-pnpm install
-# or
-yarn install
-```
-
-### Environment Variables
-
-Create a `.env` file in the project root and add your values. Common examples:
-
-```bash
-# Firebase (client-side keys must be NEXT_PUBLIC_ to be exposed to the browser)
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-
-# Cloudinary
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
-NEXT_PUBLIC_CLOUDINARY_API_KEY=your_api_key
-NEXT_PUBLIC_CLOUDINARY_API_SECRET=your_api_secret
-```
-
-Notes:
-- In Next.js, variables available to the browser must be prefixed with `NEXT_PUBLIC_`.
-- Do not expose server-only secrets (like `CLOUDINARY_API_SECRET`) to the client.
-
-### Run in Development
-
-```sh
 npm run dev
-```
 
-- App runs at http://localhost:3000
-- You may be prompted by the browser to allow microphone access (voicebot) and location access (nearby jobs).
 
-### Build and Run in Production
-
-```sh
-# Create an optimized production build
-npm run build
-
-# Start the production server
-npm start
-```
-
-Ensure all required environment variables are set on your host before starting.
-
-## Accessibility
-
-- Voicebot: The app includes a voice assistant designed to help blind and low‑vision users navigate and perform key actions.
-  - Requires microphone permission in the browser.
-  - Look for an on‑screen toggle or settings entry to enable it.
-
-## Deployment (Vercel)
-
-1. Push your repository to GitHub.
-2. In [Vercel](https://vercel.com/), click “New Project” and import the repository.
-3. Framework preset: Next.js (auto-detected).
-4. Add the same environment variables from `.env.local` to the Vercel project settings.
-5. Deploy. Vercel will build and host the app, and automatically redeploy on new commits.
+The site should now be running at http://localhost:3000.
